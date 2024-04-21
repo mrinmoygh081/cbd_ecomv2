@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom";
 // imgs import
 import logo from "../assets/cbd.jpeg";
-import {
-  FaFacebook,
-  FaFacebookF,
-  FaGooglePlusG,
-  FaInstagram,
-  FaX,
-} from "react-icons/fa6";
+import { FaFacebookF, FaGooglePlusG, FaInstagram, FaX } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
@@ -21,7 +15,7 @@ export const Footer = () => {
                   <div className="footer-widget about-widget">
                     <div className="logo">
                       <Link to="/" className="footer_brand">
-                        <img src={logo} className="img-fluid" />
+                        <img src={logo} className="img-fluid" alt="" />
                       </Link>
                     </div>
                     <div className="text">
@@ -42,19 +36,16 @@ export const Footer = () => {
                     <h2>Quick Links</h2>
                     <ul className="footer-list">
                       <li>
-                        <Link to="#">Company History</Link>
+                        <Link to="/about">About Us</Link>
                       </li>
                       <li>
-                        <Link to="#">About Us</Link>
+                        <Link to="/contact">Contact Us</Link>
                       </li>
                       <li>
-                        <Link to="#">Contact Us</Link>
+                        <Link to="/products">Products</Link>
                       </li>
                       <li>
-                        <Link to="#">Services</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Privacy Policy</Link>
+                        <Link to="/faqs">FAQs</Link>
                       </li>
                     </ul>
                   </div>

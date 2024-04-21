@@ -6,12 +6,16 @@ const Home = () => {
   return (
     <>
       <div className="hero">
-        <img src={require("../assets/hero.jpeg")} alt="" />
+        <img src={require("../assets/imgs/4.png")} alt="" />
       </div>
       <section className="product_section">
+        <div className="section_head">
+          <img src={require("../assets/imgs/1.png")} alt="" />
+          <h2>PRODUCTS</h2>
+        </div>
         <div className="container">
           <div className="section_header">
-            <h2>CBD Products Range</h2>
+            <h3>CBD Products Range</h3>
             <p>
               A collection of the Finest CBD Products. Something for everyone.
             </p>
@@ -61,6 +65,12 @@ const Home = () => {
       </section>
 
       <section className="product_section">
+        <div className="section_head">
+          <img src={require("../assets/imgs/124r.png")} alt="" />
+          <h2 style={{ transform: "translate(-50%, -10%)" }}>
+            FEATURED PRODUCTS
+          </h2>
+        </div>
         <div className="container">
           <div className="section_header">
             <h2>This Week's Special Offers</h2>
@@ -83,6 +93,10 @@ const Home = () => {
       </section>
 
       <section className="product_section">
+        <div className="section_head">
+          <img src={require("../assets/imgs/124.png")} alt="" />
+          <h2>FAQs</h2>
+        </div>
         <div className="container">
           <div className="section_header">
             <h2>Which CBD Product is right for me?</h2>
