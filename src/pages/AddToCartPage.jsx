@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { decreaseQty, increaseQty } from "../redux/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Header from "../components/Header";
-import { Footer } from "../components/Footer";
 
 const AddToCartPage = () => {
   const dispatch = useDispatch();
@@ -34,7 +32,6 @@ const AddToCartPage = () => {
 
   return (
     <>
-      <Header />
       <main>
         <section className="product-cards mb-5">
           {false ? (
@@ -143,7 +140,6 @@ const AddToCartPage = () => {
           )}
         </section>
       </main>
-      <Footer />
     </>
   );
 };

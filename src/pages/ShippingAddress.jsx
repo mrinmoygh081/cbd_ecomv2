@@ -10,8 +10,6 @@ import {
 import { useLocation } from "react-router-dom";
 import { postAPI } from "../utils/fetchAPIs";
 import { toast } from "react-toastify";
-import Header from "../components/Header";
-import { Footer } from "../components/Footer";
 
 const ShippingAddress = () => {
   //   const dispatch = useDispatch();
@@ -70,7 +68,6 @@ const ShippingAddress = () => {
 
   return (
     <>
-      <Header />
       <main>
         <section className="product-cards mb-5">
           {isLoading ? (
@@ -213,7 +210,6 @@ const ShippingAddress = () => {
           </form>
         </div>
       )}
-      <Footer />
     </>
   );
 };
