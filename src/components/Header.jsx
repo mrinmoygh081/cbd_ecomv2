@@ -29,6 +29,9 @@ const Header = () => {
                   <li>
                     <Link to={"/faqs"}>FAQ</Link>
                   </li>
+                  <li>
+                    <Link to={"/coffee"}>Coffee</Link>
+                  </li>
                 </ul>
               </div>
               <div className="col-md-4"></div>

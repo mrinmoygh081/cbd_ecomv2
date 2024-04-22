@@ -1,3 +1,4 @@
+import "./assets/adminStyle.css";
 import "./App.css";
 import Layout from "./Layout";
 
