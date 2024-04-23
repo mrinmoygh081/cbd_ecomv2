@@ -1,6 +1,7 @@
 import React from "react";
 import Product from "../components/Product";
 import ProductBuyNow from "../components/ProductBuyNow";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -21,7 +22,7 @@ const Home = () => {
             </p>
           </div>
           <div className="row">
-            <Product />
+            <Product title="Tincture" />
             <Product />
             <Product />
             <Product />
@@ -34,30 +35,36 @@ const Home = () => {
       </section>
       <section className="section_about">
         <div className="container">
-          <div className="row">
+          <div className="row align-items-center">
             <div className="col-md-4 col-12">
-              <img src={require("../assets/product1.webp")} alt="" />
+              <img src={require("../assets/imgs/coffee2.jpg")} alt="" />
             </div>
             <div className="col-md-8 col-12">
               <div className="section_text">
-                <h2>CBD UK – The UK’s Most Trusted CBD Hemp Oil products</h2>
+                <h2>About CBD City</h2>
                 <p>
-                  At CBD UK, our mission is to offer our valued customers only
-                  the finest quality CBD products, at great prices. With over 7
-                  years of experience in the CBD industry, we like to think that
-                  our expert team has some of the most helpful knowledge when it
-                  comes to helping our customers find the right product for
-                  them. Our passion shows in every single one of our products,
-                  which is highlighted by the number of return customers we have
-                  gained over the last 7 years. Our customer product reviews say
-                  it all. Everything we do at CBD UK is done to the highest
-                  standard. Quality Control and Testing ensure that every
-                  product is exactly as described and completely safe. All our
-                  products come with a 100% Money-Back Guarantee. If you are not
-                  100% happy with any of your purchases, we will refund in full
-                  (terms and conditions apply). All our products are sold as a
-                  “Food Supplement” under the MHRA UK Regulations.
+                  CBD City LLC was established jan 2021 in Atlanta Georgia as
+                  part of Black Brown and Green Organics LLC vertically
+                  integrated Hemp and Cannabis company as retail flagship
+                  holistic health and wellness center.
                 </p>
+                <p>
+                  Inspired by Dr. Rapheal Mechoulam Known as Father of Cannabis
+                  Research from Israel was the first to isolate the psychoactive
+                  compound of the cannabis plant -tetrahydrocannabinol or THC.
+                  Which led to thousands of clinical studies throughout the
+                  world.
+                </p>
+                <p>
+                  As early as 2737 B.C. the mystical Emperor Shen Neng of China
+                  was prescribing majuana tea for treatment of gout,rheumatism,
+                  malaria and for memory loss. Based on years of clinical
+                  studies of the whole body medical benefits from the hemp and
+                  cannabis plants.
+                </p>
+                <Link to={"/about"} className="btn_style">
+                  EXPLORE MORE
+                </Link>
               </div>
             </div>
           </div>

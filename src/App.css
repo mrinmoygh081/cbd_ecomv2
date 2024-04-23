@@ -140,7 +140,7 @@ img {
   padding: 50px 0;
 }
 .section_text {
-  text-align: center;
+  text-align: justify;
 }
 .product-cards__slider-nav {
   transform: translateX(12px);
@@ -583,6 +583,7 @@ img {
 .sidebar_nav a {
   padding: 8px 20px;
   display: block;
+  overflow-y: scroll;
 }
 /* /sidebar */
 

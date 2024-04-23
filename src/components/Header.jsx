@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { apiCallBack } from "../utils/fetchAPIs";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [cat, setCat] = useState(null);
+
+  const getCat = async () => {
+    const d = await apiCallBack("GET", "allCategory", null, null);
+    if (d?.status) {
+      setCat(d?.data);
+    }
+  };
+
+  useEffect(() => {
+    getCat();
+  }, []);
+
   return (
     <>
       {/* desktop header */}
@@ -58,15 +72,14 @@ const Header = () => {
               <div className="col-md-7">
                 <div className="header_middle">
                   <ul>
-                    <li>
-                      <Link to={"/products"}>OILS</Link>
-                    </li>
-                    <li>
-                      <Link to={"/products"}>CAPSULES</Link>
-                    </li>
-                    <li>
-                      <Link to={"/products"}>PATCHES</Link>
-                    </li>
+                    {cat &&
+                      cat.map((item, i) => (
+                        <li key={i}>
+                          <Link to={`/products?cat_id=${item?.cat_id}`}>
+                            {item?.name}
+                          </Link>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>
