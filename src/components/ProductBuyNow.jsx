@@ -6,6 +6,7 @@ import { addCartHandler } from "../redux/slices/cartSlice";
 
 const ProductBuyNow = ({ p_id, name, price, image, item }) => {
   const dispatch = useDispatch();
+  console.log("item", item);
   return (
     <>
       <div className="col-12 col-md-4">

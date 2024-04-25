@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import LoadingView from "../components/LoadingView";
 import { useDispatch, useSelector } from "react-redux";
-import { decreaseQty, increaseQty } from "../redux/slices/cartSlice";
+import {
+  decreaseQty,
+  increaseQty,
+  removeCartHandler,
+} from "../redux/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { MdDeleteOutline } from "react-icons/md";
 
 const AddToCartPage = () => {
   const dispatch = useDispatch();
@@ -48,7 +53,6 @@ const AddToCartPage = () => {
                       cartItems.length > 0 &&
                       cartItems.map((item, i) => (
                         <div className="cart_item" key={i}>
-                          {console.log(item)}
                           <img
                             src={`${backUrl + item?.image}`}
                             alt=""
@@ -56,12 +60,24 @@ const AddToCartPage = () => {
                           />
                           <h4 className="cart_item_name">{item?.name}</h4>
                           <div className="quantity">
-                            <button
-                              className="qty_minus"
-                              onClick={() => dispatch(decreaseQty(item))}
-                            >
-                              -
-                            </button>
+                            {item?.qty > 1 ? (
+                              <button
+                                className="qty_minus"
+                                onClick={() => dispatch(decreaseQty(item))}
+                              >
+                                -
+                              </button>
+                            ) : (
+                              <button
+                                className="qty_minus"
+                                onClick={() =>
+                                  dispatch(removeCartHandler(item?.product_id))
+                                }
+                              >
+                                <MdDeleteOutline />
+                              </button>
+                            )}
+
                             <input
                               type="text"
                               value={item?.qty}

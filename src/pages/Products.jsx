@@ -8,7 +8,7 @@ import { checkTypeArr } from "../utils/smailFun";
 const Products = () => {
   const [data, setData] = useState(null);
   const [catId, setCatId] = useState(null);
-  const [cat, setCat] = useState(null);
+  // const [cat, setCat] = useState(null);
   const [productByCat, setProductByCat] = useState(null);
   const location = useLocation();
 
@@ -28,7 +28,7 @@ const Products = () => {
               "POST",
               "user/product",
               {
-                productId: item?.cat_id,
+                catId: item?.cat_id,
               },
               null
             );
@@ -49,8 +49,28 @@ const Products = () => {
     setCatId(catIdParam);
   }, [location.search]);
 
+  console.log("productByCat", productByCat);
+  console.log("data", data);
+
+  const getProdByCatList = async (catId) => {
+    console.log("getProdByCatList", catId);
+    let body;
+    if (catId) {
+      body = {
+        catId: catId,
+      };
+    } else {
+      body = null;
+    }
+    const res = await apiCallBack("POST", "user/product", body, null);
+    if (res?.status) {
+      setData(res?.data);
+    }
+  };
+
   useEffect(() => {
     getProductsByCat();
+    getProdByCatList(catId);
   }, [catId]);
 
   return (
@@ -78,7 +98,7 @@ const Products = () => {
                             {checkTypeArr(item?.products) &&
                               item?.products.map((item, i) => (
                                 <li key={i}>
-                                  <Link to={"/"}>{item}</Link>
+                                  <Link to={"/"}>{item?.name}</Link>
                                 </li>
                               ))}
                           </ul>
@@ -95,13 +115,14 @@ const Products = () => {
               </div>
               <div className="product-cards__slider">
                 <div className="row">
-                  {data &&
+                  {checkTypeArr(data) &&
                     data.map((item, i) => (
                       <ProductBuyNow
                         name={item?.name}
                         price={item?.price}
                         p_id={item?.product_id}
                         image={item?.image}
+                        item={item}
                       />
                     ))}
                 </div>

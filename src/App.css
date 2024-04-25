@@ -88,6 +88,22 @@ img {
   color: #fff;
   background-color: rgba(23, 24, 26, 0.67) !important;
 }
+.megamenu {
+  position: relative;
+}
+.megamenu .drop {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  background-color: #00200f;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  display: none;
+}
+.megamenu:hover .drop {
+  display: block;
+}
 .header_middle ul {
   display: flex;
   align-items: center;
@@ -158,7 +174,7 @@ img {
 }
 .product-cards__title {
   font-weight: 700;
-  font-size: 40px;
+  font-size: 30px;
   line-height: 130%;
   color: var(--darkGreenColor);
 }

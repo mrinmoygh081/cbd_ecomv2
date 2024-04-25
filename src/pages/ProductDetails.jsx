@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCartShopping, FaRegHeart } from "react-icons/fa6";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { apiCallBack } from "../utils/fetchAPIs";
-import { FaRegStar } from "react-icons/fa";
-import { IoIosStar } from "react-icons/io";
 import StarRatings from "../components/StarRatings";
 import { addCartHandler } from "../redux/slices/cartSlice";
 import { useDispatch } from "react-redux";

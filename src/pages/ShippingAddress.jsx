@@ -47,7 +47,7 @@ const ShippingAddress = () => {
       console.log(body);
       let d = postAPI("user/codorder", body, userToken);
       if (d.status) {
-        navigate();
+        navigate("/");
         toast.success("Your order has been placed!");
       } else {
         toast.warn("Something went wrong!");
@@ -68,7 +68,9 @@ const ShippingAddress = () => {
       const { token } = d;
       setUserToken(token);
       setIsPopup(false);
-      dispatch(loginHandler());
+      dispatch(loginHandler(d));
+    } else {
+      toast.warn(d?.msg);
     }
     setIsLoading(false);
   };
