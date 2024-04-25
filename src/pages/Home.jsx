@@ -23,10 +23,10 @@ const Home = () => {
   };
 
   const getProductsByType = async () => {
-    let obj = {
-      type: 1,
-      take: 3,
-    };
+    // let obj = {
+    //   type: 1,
+    //   take: 3,
+    // };
     const d = await apiCallBack("POST", "user/product", null, null);
     if (d?.status) {
       setProducts(d?.data);

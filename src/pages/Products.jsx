@@ -8,7 +8,7 @@ import { checkTypeArr } from "../utils/smailFun";
 const Products = () => {
   const [data, setData] = useState(null);
   const [catId, setCatId] = useState(null);
-  const [cat, setCat] = useState(null);
+  // const [cat, setCat] = useState(null);
   const [productByCat, setProductByCat] = useState(null);
   const location = useLocation();
 
