@@ -18,7 +18,7 @@ html {
 }
 body {
   overflow-x: hidden;
-  font-size: 20px;
+  font-size: 18px;
 }
 ul {
   list-style: none;
@@ -57,6 +57,11 @@ img {
 }
 
 /* Header  */
+.top_head {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 .topbar {
   background-color: #111;
   color: #fff;
@@ -121,6 +126,9 @@ img {
   width: 100%;
   margin: 0;
 }
+.section_head h1 {
+  font-size: 24px;
+}
 .product_section h3 {
   font-size: 26px;
   font-weight: 700;
@@ -133,6 +141,9 @@ img {
 }
 .p_img:hover {
   transform: scale(1.1);
+}
+.p_img img {
+  margin-bottom: 15px;
 }
 
 /* Section  */
@@ -264,6 +275,10 @@ img {
   height: 16px;
   color: inherit;
   fill: currentColor;
+}
+.product-card__btn.deactive {
+  cursor: not-allowed;
+  background-color: #2d4d3c;
 }
 .product-card .sale-badge {
   position: absolute;
@@ -755,4 +770,198 @@ img {
   .header_mobile svg {
     font-size: 28px;
   }
+}
+/* FAQ container */
+.faq-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* FAQ list */
+.faq-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* FAQ item */
+.faq-item {
+  margin-bottom: 20px;
+}
+
+/* FAQ question */
+.faq-question {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+/* FAQ answer */
+.faq-answer {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* Icon for expanded/collapsed state */
+.faq-question:before {
+  content: "+";
+}
+
+.faq-question.expanded:before {
+  content: "-";
+}
+.p_details h3 {
+  font-size: 18px;
+}
+/* .star-rating .star.full {
+  color: rgb(255, 146, 3);
+}
+.star-rating .star.empty {
+  border: 1px solid #ccc;
+} */
+
+.star-rating {
+  font-size: 24px;
+}
+
+.star {
+  color: #ffd700;
+}
+
+.full:before {
+  content: "\2605";
+}
+
+.half:before {
+  content: "\2605";
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 1px #ffd700;
+  -webkit-text-fill-color: transparent;
+}
+
+.empty:before {
+  content: "\2606";
+}
+
+/* cart page */
+.cart_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+.cart_item img {
+  width: 100px;
+}
+.cart_item .quantity {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.cart_item .quantity input {
+  width: 40px;
+  margin: 0 10px;
+  text-align: center;
+}
+.cart_item .quantity .qty_minus,
+.cart_item .quantity .qty_plus {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #00200f;
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart_item .cart_price {
+  font-weight: 600;
+  font-size: 20px;
+}
+.cart_right .cart_item {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .cart_item {
+    flex-direction: column;
+  }
+}
+
+.shipping_form {
+  width: 100%;
+}
+
+.popupsection {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+}
+.popup {
+  /* position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  min-width: 350px;
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  z-index: 99;
+}
+.popup_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.popup_header h3 {
+  font-size: 18px;
+}
+
+.popup_header svg,
+.popup_header i {
+  font-size: 20px;
+  cursor: pointer;
+}
+.orders_list {
+  box-shadow: 1px 4px 8px #969696;
+  padding: 20px;
+  max-width: 400px;
+  margin: 10px auto;
+}
+.order_card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.container-1 h1 {
+  font-size: 32px;
 }

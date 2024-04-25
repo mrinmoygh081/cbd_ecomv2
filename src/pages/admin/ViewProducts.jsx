@@ -28,7 +28,7 @@ const NewProducts = () => {
     images: null,
   });
 
-  const addProductHandler = async (e) => {
+  const editProductHandler = async (e) => {
     e.preventDefault();
     const {
       name,
@@ -98,8 +98,6 @@ const NewProducts = () => {
     })();
   }, []);
 
-  console.log(form);
-
   return (
     <div className="fixed-nav sticky-footer bg-dark" id="page-top">
       <HeaderAdmin />
@@ -114,17 +112,9 @@ const NewProducts = () => {
           <div className="mb_100">
             <div className="row mb-4 align-items-end">
               <div className="col-md-6">
-                <div className="form-floating mb-3 w-100">
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    id="floatingInput"
-                    placeholder=""
-                    value={form?.name}
-                    onChange={(e) => inputChange(e, form, setForm)}
-                  />
+                <div className="mb-3 w-100">
                   <label htmlFor="floatingInput">Name</label>
+                  <p>Name</p>
                 </div>
               </div>
               <div className="col-md-3">
@@ -249,7 +239,7 @@ const NewProducts = () => {
                     <option value={null}>Open this select menu</option>
                     <option value={0}>General Product</option>
                     <option value={1}>Top Product</option>
-                    <option value={2}>Feature Product</option>
+                    <option value={2}>Special Product</option>
                   </select>
                   <label htmlFor="floatingSelect">Category</label>
                 </div>
@@ -273,10 +263,10 @@ const NewProducts = () => {
 
             <button
               type="button"
-              onClick={addProductHandler}
+              onClick={editProductHandler}
               className="btn btn-primary"
             >
-              Add Product
+              Update
             </button>
           </div>
         </div>

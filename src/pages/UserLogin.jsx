@@ -3,14 +3,16 @@ import {
   inputChange,
   inputChangePrevent,
   inputOnWheelPrevent,
-} from "../../Helper/smallFun";
-import { postAPI } from "../../utils/fetchAPIs";
+} from "../Helper/smallFun";
+import { postAPI } from "../utils/fetchAPIs";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { loginHandler } from "../../redux/slices/loginSlice";
+import { loginHandler } from "../redux/slices/loginSlice";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const UserLogin = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     phone: "",
     password: "",
@@ -23,10 +25,12 @@ const Login = () => {
       toast.warn("Please enter all required fields!");
       return;
     }
-    const data = await postAPI("login/admin", form, null);
-    if (data?.status) {
+    const data = await postAPI("login/user", form, null);
+    if (data.status) {
+      console.log(data);
       toast.success("You have successfully logged in!");
       dispatch(loginHandler(data));
+      navigate("/");
     } else {
       toast.error(data?.msg);
     }
@@ -36,7 +40,7 @@ const Login = () => {
     <>
       <div className="container-1">
         <div className="text-center mb-10">
-          <h1 className="text-dark mb-3">Admin Panel</h1>
+          <h1 className="text-dark mb-3">Login Panel</h1>
         </div>
         <p>We&apos;re so excited to see you again!</p>
         <form onSubmit={loginFun} className="w-100">
@@ -63,14 +67,15 @@ const Login = () => {
               placeholder="Password"
               value={form?.password}
               onChange={(e) => inputChange(e, form, setForm)}
+              autoComplete={"off"}
             />
             <label htmlFor="floatingPassword">Password</label>
           </div>
-          <button className="login-ahref">Login</button>
+          <button className="login-ahref">LOGIN</button>
         </form>
       </div>
     </>
   );
 };
 
-export default Login;
+export default UserLogin;

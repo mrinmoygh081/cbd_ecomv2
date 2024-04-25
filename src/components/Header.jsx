@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { apiCallBack } from "../utils/fetchAPIs";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutHandler } from "../redux/slices/loginSlice";
+import { reConfirm } from "../Helper/smallFun";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token, name } = useSelector((state) => state.auth);
   const [isActive, setIsActive] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [cat, setCat] = useState(null);
@@ -18,14 +24,23 @@ const Header = () => {
     }
   };
 
+  const logOutFun = () => {
+    dispatch(logoutHandler());
+    navigate("/");
+    // Persistor.pause();
+    // Persistor.flush().then(() => {
+    //   return Persistor.purge();
+    // });
+  };
+
   useEffect(() => {
     getCat();
   }, []);
 
   return (
     <>
-      {/* desktop header */}
-      <div className="d-none d-md-block">
+      {/* Desktop Header */}
+      <div className="d-none d-md-block top_head">
         <div className="topbar">
           <div className="container">
             <div className="row align-items-center">
@@ -35,10 +50,10 @@ const Header = () => {
                     <Link to={"/"}>Home</Link>
                   </li>
                   <li>
-                    <Link to={"/about"}>About us</Link>
+                    <Link to={"/about"}>About</Link>
                   </li>
                   <li>
-                    <Link to={"/contact"}>contact us</Link>
+                    <Link to={"/contact"}>contact</Link>
                   </li>
                   <li>
                     <Link to={"/faqs"}>FAQ</Link>
@@ -51,8 +66,38 @@ const Header = () => {
               <div className="col-md-4"></div>
               <div className="col-md-4">
                 <ul className="topbar_right">
+                  {token && (
+                    <>
+                      <li>
+                        <Link to={"/wishlist"}>WISHLIST</Link>
+                      </li>
+                      <li>
+                        <Link to={"/orders"}>ORDERS</Link>
+                      </li>
+                    </>
+                  )}
                   <li>
-                    <Link to={"/wishlist"}>WISHLIST</Link>
+                    {token ? (
+                      <>
+                        <div className="d-flex justify-content-center">
+                          <span className="name">{name && name}</span>
+                          <button
+                            onClick={() =>
+                              reConfirm(
+                                { file: true },
+                                logOutFun,
+                                "You're going to Logout!"
+                              )
+                            }
+                            className="btn btn-sm btn-danger"
+                          >
+                            Logout?
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <Link to={"/login"}>LOGIN</Link>
+                    )}
                   </li>
                 </ul>
               </div>
@@ -101,7 +146,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      {/* mobile header  */}
+      {/* Mobile Header  */}
       <div className="d-block d-md-none">
         <div className="header_mobile">
           <div className="container">

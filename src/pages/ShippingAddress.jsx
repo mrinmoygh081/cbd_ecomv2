@@ -7,16 +7,17 @@ import {
   inputChangePrevent,
   inputOnWheelPrevent,
 } from "../Helper/smallFun";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { postAPI } from "../utils/fetchAPIs";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loginHandler } from "../redux/slices/loginSlice";
 
 const ShippingAddress = () => {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
-  //   let backUrl = process.env.REACT_APP_BACKEND_URL;
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  //   const cartItems = useSelector((state) => state.cart);
   const [isPopup, setIsPopup] = useState(false);
   const [form, setForm] = useState({
     country: "",
@@ -33,6 +34,10 @@ const ShippingAddress = () => {
   const [userToken, setUserToken] = useState(null);
 
   const orderHandler = async () => {
+    const { country, state, city, pincode, landmark } = form;
+    if (!country || !state || !city || !pincode || !form?.location) {
+      return toast.warn("Please check all required fields.");
+    }
     if (userToken) {
       setIsPopup(false);
       let body = {
@@ -42,9 +47,10 @@ const ShippingAddress = () => {
       console.log(body);
       let d = postAPI("user/codorder", body, userToken);
       if (d.status) {
+        navigate();
         toast.success("Your order has been placed!");
       } else {
-        toast.success("Your order has been placed!");
+        toast.warn("Something went wrong!");
       }
     } else {
       setIsPopup(true);
@@ -52,6 +58,7 @@ const ShippingAddress = () => {
   };
 
   const loginFun = async () => {
+    setIsLoading(true);
     const { phone, password } = loginD;
     if (phone === "" && password === "") {
       toast.warn("Please enter a phone number and password");
@@ -61,10 +68,10 @@ const ShippingAddress = () => {
       const { token } = d;
       setUserToken(token);
       setIsPopup(false);
+      dispatch(loginHandler());
     }
+    setIsLoading(false);
   };
-
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -77,91 +84,104 @@ const ShippingAddress = () => {
               <div className="product-cards__top">
                 <h2 className="product-cards__title">Shipping Address</h2>
               </div>
-              <div className="row justify-content-center">
-                <div className="col-md-4 col-12">
+              <div className="row ">
+                <div className="col-12">
                   <div className="cart_right">
                     <div className="cart_item">
                       <h3>Add Your Address</h3>
-
                       <div className="shipping_form">
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            className="form-control w-100"
-                            id="floatingInput"
-                            placeholder=""
-                            name="location"
-                            value={form?.location}
-                            onChange={(e) => inputChange(e, form, setForm)}
-                          />
-                          <label htmlFor="floatingInput">Location</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            className="form-control w-100"
-                            id="floatingInput"
-                            placeholder=""
-                            name="city"
-                            value={form?.city}
-                            onChange={(e) => inputChange(e, form, setForm)}
-                          />
-                          <label htmlFor="floatingInput">City</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            className="form-control w-100"
-                            id="floatingInput"
-                            placeholder=""
-                            name="state"
-                            value={form?.state}
-                            onChange={(e) => inputChange(e, form, setForm)}
-                          />
-                          <label htmlFor="floatingInput">State</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            className="form-control w-100"
-                            id="floatingInput"
-                            placeholder=""
-                            name="country"
-                            value={form?.country}
-                            onChange={(e) => inputChange(e, form, setForm)}
-                          />
-                          <label htmlFor="floatingInput">Country</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            className="form-control w-100"
-                            id="floatingInput"
-                            placeholder=""
-                            name="pincode"
-                            value={form?.pincode}
-                            onChange={(e) => inputChange(e, form, setForm)}
-                          />
-                          <label htmlFor="floatingInput">Pincode</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            className="form-control w-100"
-                            id="floatingInput"
-                            placeholder=""
-                            name="landmark"
-                            value={form?.landmark}
-                            onChange={(e) => inputChange(e, form, setForm)}
-                          />
-                          <label htmlFor="floatingInput">Landmark</label>
+                        <div className="row">
+                          <div className="col-md-4 col-12">
+                            <div className="form-floating mb-3">
+                              <input
+                                type="text"
+                                className="form-control w-100"
+                                id="Location"
+                                placeholder=""
+                                name="location"
+                                value={form?.location}
+                                onChange={(e) => inputChange(e, form, setForm)}
+                              />
+                              <label htmlFor="Location">Location</label>
+                            </div>
+                          </div>
+                          <div className="col-md-4 col-12">
+                            <div className="form-floating mb-3">
+                              <input
+                                type="text"
+                                className="form-control w-100"
+                                id="city"
+                                placeholder=""
+                                name="city"
+                                value={form?.city}
+                                onChange={(e) => inputChange(e, form, setForm)}
+                              />
+                              <label htmlFor="city">City</label>
+                            </div>
+                          </div>
+                          <div className="col-md-4 col-12">
+                            <div className="form-floating mb-3">
+                              <input
+                                type="text"
+                                className="form-control w-100"
+                                id="state"
+                                placeholder=""
+                                name="state"
+                                value={form?.state}
+                                onChange={(e) => inputChange(e, form, setForm)}
+                              />
+                              <label htmlFor="state">State</label>
+                            </div>
+                          </div>
+                          <div className="col-md-4 col-12">
+                            <div className="form-floating mb-3">
+                              <input
+                                type="text"
+                                className="form-control w-100"
+                                id="country"
+                                placeholder=""
+                                name="country"
+                                value={form?.country}
+                                onChange={(e) => inputChange(e, form, setForm)}
+                              />
+                              <label htmlFor="country">Country</label>
+                            </div>
+                          </div>
+                          <div className="col-md-4 col-12">
+                            <div className="form-floating mb-3">
+                              <input
+                                type="text"
+                                className="form-control w-100"
+                                id="pincode"
+                                placeholder=""
+                                name="pincode"
+                                value={form?.pincode}
+                                onChange={(e) => inputChange(e, form, setForm)}
+                              />
+                              <label htmlFor="pincode">Pincode</label>
+                            </div>
+                          </div>
+                          <div className="col-md-4 col-12">
+                            <div className="form-floating mb-3">
+                              <input
+                                type="text"
+                                className="form-control w-100"
+                                id="landmark"
+                                placeholder=""
+                                name="landmark"
+                                value={form?.landmark}
+                                onChange={(e) => inputChange(e, form, setForm)}
+                              />
+                              <label htmlFor="landmark">Landmark</label>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <button
                         className="btn-reset product-card__btn"
                         onClick={orderHandler}
                       >
-                        Purchase Now
+                        ORDER NOW
                       </button>
                     </div>
                   </div>
@@ -172,43 +192,46 @@ const ShippingAddress = () => {
         </section>
       </main>
       {isPopup && (
-        <div className="popup">
-          <div className="popup_header">
-            <h3>Login</h3>
-            <RxCross1 />
+        <section className="popupsection">
+          <div className="popup">
+            <div className="popup_header">
+              <h3>Login</h3>
+              <RxCross1 onClick={() => setIsPopup(false)} />
+            </div>
+            <form onSubmit={loginFun} className="w-100">
+              <div className="form-floating mb-3 w-100">
+                <input
+                  type="number"
+                  name="phone"
+                  className="form-control"
+                  id="phone"
+                  placeholder=""
+                  value={form?.phone}
+                  onChange={(e) => inputChange(e, loginD, setLoginD)}
+                  onWheel={inputOnWheelPrevent}
+                  onKeyDown={inputChangePrevent}
+                />
+                <label htmlFor="phone">Phone</label>
+              </div>
+              <div className="form-floating mb-3 w-100">
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  id="pw"
+                  placeholder="Password"
+                  autoComplete="off"
+                  value={form?.password}
+                  onChange={(e) => inputChange(e, loginD, setLoginD)}
+                />
+                <label htmlFor="pw">Password</label>
+              </div>
+              <button className="login-ahref" onClick={loginFun} type="button">
+                Login
+              </button>
+            </form>
           </div>
-          <form onSubmit={loginFun} className="w-100">
-            <div className="form-floating mb-3 w-100">
-              <input
-                type="number"
-                name="phone"
-                className="form-control"
-                id="floatingInput"
-                placeholder=""
-                value={form?.phone}
-                onChange={(e) => inputChange(e, loginD, setLoginD)}
-                onWheel={inputOnWheelPrevent}
-                onKeyDown={inputChangePrevent}
-              />
-              <label htmlFor="floatingInput">Phone</label>
-            </div>
-            <div className="form-floating mb-3 w-100">
-              <input
-                type="password"
-                name="password"
-                className="form-control"
-                id="floatingPassword"
-                placeholder="Password"
-                value={form?.password}
-                onChange={(e) => inputChange(e, loginD, setLoginD)}
-              />
-              <label htmlFor="floatingPassword">Password</label>
-            </div>
-            <button className="login-ahref" onClick={loginFun} type="button">
-              Login
-            </button>
-          </form>
-        </div>
+        </section>
       )}
     </>
   );

@@ -42,6 +42,12 @@ const HeaderAdmin = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/admin/orders">
+                <i className="fa fa-fw fa-table"></i>
+                <span className="nav-link-text">Orders</span>
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/admin/products">
                 <i className="fa fa-fw fa-table"></i>
                 <span className="nav-link-text">Products</span>

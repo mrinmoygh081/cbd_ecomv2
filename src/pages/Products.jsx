@@ -1,9 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductBuyNow from "../components/ProductBuyNow";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { FiPlusCircle } from "react-icons/fi";
+import { apiCallBack } from "../utils/fetchAPIs";
+import { checkTypeArr } from "../utils/smailFun";
 
 const Products = () => {
+  const [data, setData] = useState(null);
+  const [catId, setCatId] = useState(null);
+  const [cat, setCat] = useState(null);
+  const [productByCat, setProductByCat] = useState(null);
+  const location = useLocation();
+
+  const getProductsByCat = async () => {
+    try {
+      // Fetch all categories
+      let result = [];
+      let categories = "";
+      const res = await apiCallBack("GET", "allCategory", null, null);
+      if (res.status) {
+        categories = res.data;
+      }
+      if (checkTypeArr(categories)) {
+        await Promise.all(
+          await categories.map(async (item, index) => {
+            const products = await apiCallBack(
+              "POST",
+              "user/product",
+              {
+                productId: item?.cat_id,
+              },
+              null
+            );
+            result.push({ cat_name: item.name, products: products.data });
+          })
+        );
+      }
+      setProductByCat(result);
+    } catch (error) {
+      console.error("Error fetching products by category:", error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const catIdParam = params.get("cat_id");
+    setCatId(catIdParam);
+  }, [location.search]);
+
+  useEffect(() => {
+    getProductsByCat();
+  }, [catId]);
+
   return (
     <>
       <section className="product_section">
@@ -18,38 +67,23 @@ const Products = () => {
                 <div className="p_category">
                   <h3>All Categories</h3>
                   <ul>
-                    <li>
-                      <div className="cat_choice_list">
-                        <Link to={"/"}>CBD OILS</Link>
-                        <FiPlusCircle />
-                      </div>
-                      <ul className="subdrop">
-                        <li>
-                          <Link to={"/"}>Natural Flavour CBD Oil</Link>
+                    {productByCat &&
+                      productByCat.map((item, i) => (
+                        <li key={i}>
+                          <div className="cat_choice_list">
+                            <Link to={"/"}>{item?.cat_name}</Link>
+                            <FiPlusCircle />
+                          </div>
+                          <ul className="subdrop">
+                            {checkTypeArr(item?.products) &&
+                              item?.products.map((item, i) => (
+                                <li key={i}>
+                                  <Link to={"/"}>{item}</Link>
+                                </li>
+                              ))}
+                          </ul>
                         </li>
-                        <li>
-                          <Link to={"/"}>Natural Flavour CBD Oil</Link>
-                        </li>
-                        <li>
-                          <Link to={"/"}>Natural Flavour CBD Oil</Link>
-                        </li>
-                        <li>
-                          <Link to={"/"}>Natural Flavour CBD Oil</Link>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <div className="cat_choice_list">
-                        <Link to={"/"}>CBD CAPSULES</Link>
-                        <FiPlusCircle />
-                      </div>
-                    </li>
-                    <li>
-                      <div className="cat_choice_list">
-                        <Link to={"/"}>CBD CREAM</Link>
-                        <FiPlusCircle />
-                      </div>
-                    </li>
+                      ))}
                   </ul>
                 </div>
               </div>
@@ -57,20 +91,19 @@ const Products = () => {
             <div className="col-md-9 col-12">
               <div className="section_header">
                 <h2>This Week's Special Offers</h2>
-                <p>
-                  These CBD SALE items offer BIG Discounts on some Amazing
-                  products.
-                </p>
+                <p>These CBD offer BIG Discounts on some Amazing products.</p>
               </div>
               <div className="product-cards__slider">
                 <div className="row">
-                  <ProductBuyNow />
-                  <ProductBuyNow />
-                  <ProductBuyNow />
-                  <ProductBuyNow />
-                  <ProductBuyNow />
-                  <ProductBuyNow />
-                  <ProductBuyNow />
+                  {data &&
+                    data.map((item, i) => (
+                      <ProductBuyNow
+                        name={item?.name}
+                        price={item?.price}
+                        p_id={item?.product_id}
+                        image={item?.image}
+                      />
+                    ))}
                 </div>
               </div>
             </div>

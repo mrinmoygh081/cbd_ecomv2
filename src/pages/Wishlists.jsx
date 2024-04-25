@@ -10,12 +10,6 @@ const Wishlists = () => {
           <h2 style={{ transform: "translate(-50%, -10%)" }}>WISHLIST</h2>
         </div>
         <div className="container">
-          <div className="section_header">
-            <h2>This Week's Special Offers</h2>
-            <p>
-              These CBD SALE items offer BIG Discounts on some Amazing products.
-            </p>
-          </div>
           <div className="product-cards__slider">
             <div className="row">
               <ProductBuyNow />

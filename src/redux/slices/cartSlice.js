@@ -15,9 +15,9 @@ export const cartStage = createSlice({
       const existingItem = state.find((item) => item.product_id === product_id);
       console.log(action.payload);
       if (existingItem) {
-        existingItem.qty += qty;
+        existingItem.qty = parseInt(existingItem.qty) + parseInt(qty);
       } else {
-        state.push({ image, product_id, price, name, quantity, qty });
+        state.push({ image, product_id, price, name, quantity, qty: 1 });
       }
       toast.success("The product has been added successfully!");
     },
@@ -30,11 +30,14 @@ export const cartStage = createSlice({
       const existingItem = state.find((item) => item.product_id === product_id);
 
       if (existingItem) {
-        existingItem.qty = existingItem.qty + 1;
+        existingItem.qty = parseInt(existingItem.qty) + 1;
       } else {
         existingItem.qty = 1;
       }
-      existingItem.price = parseInt(existingItem.price) * existingItem.qty;
+      existingItem.price =
+        parseInt(existingItem.price) * parseInt(existingItem.qty);
+
+      console.log("existingItem2: " + JSON.stringify(existingItem));
     },
     decreaseQty: (state, action) => {
       const { product_id } = action.payload;

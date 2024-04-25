@@ -1,9 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Product from "../components/Product";
 import ProductBuyNow from "../components/ProductBuyNow";
 import { Link } from "react-router-dom";
+import { apiCallBack } from "../utils/fetchAPIs";
+import { checkTypeArr } from "../utils/smailFun";
+import { faqData } from "../data/data";
 
 const Home = () => {
+  const [cat, setCat] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  const toggleQuestion = (index) => {
+    setExpandedIndex(index === expandedIndex ? null : index);
+  };
+
+  const getCat = async () => {
+    const d = await apiCallBack("GET", "allCategory", null, null);
+    if (d?.status) {
+      setCat(d?.data);
+    }
+  };
+
+  const getProductsByType = async () => {
+    let obj = {
+      type: 1,
+      take: 3,
+    };
+    const d = await apiCallBack("POST", "user/product", null, null);
+    if (d?.status) {
+      setProducts(d?.data);
+    }
+  };
+
+  useEffect(() => {
+    getCat();
+    getProductsByType();
+  }, []);
+
   return (
     <>
       <div className="hero">
@@ -12,7 +46,7 @@ const Home = () => {
       <section className="product_section">
         <div className="section_head">
           <img src={require("../assets/imgs/1.png")} alt="" />
-          <h2>PRODUCTS</h2>
+          <h2>CATEGORIES</h2>
         </div>
         <div className="container">
           <div className="section_header">
@@ -22,14 +56,15 @@ const Home = () => {
             </p>
           </div>
           <div className="row">
-            <Product title="Tincture" />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            {cat &&
+              cat.map((item, i) => (
+                <Product
+                  name={item?.name}
+                  id={item?.cat_id}
+                  image={item?.image}
+                  key={i}
+                />
+              ))}
           </div>
         </div>
       </section>
@@ -87,13 +122,19 @@ const Home = () => {
           </div>
           <div className="product-cards__slider">
             <div className="row">
-              <ProductBuyNow />
-              <ProductBuyNow />
-              <ProductBuyNow />
-              <ProductBuyNow />
-              <ProductBuyNow />
-              <ProductBuyNow />
-              <ProductBuyNow />
+              {checkTypeArr(products) &&
+                products
+                  .filter((item) => item.type === 2)
+                  .map((item, i) => (
+                    <ProductBuyNow
+                      p_id={item?.product_id}
+                      name={item?.name}
+                      price={item?.price}
+                      image={item?.image}
+                      key={i}
+                      item={item}
+                    />
+                  ))}
             </div>
           </div>
         </div>
@@ -112,99 +153,40 @@ const Home = () => {
               you.
             </p>
           </div>
-          <div className="row">
-            <div className="col-12 col-md-3">
-              <div className="pr_card">
-                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
-                <div className="p-1">
-                  <h2>CBD Oil</h2>
-                  <p>
-                    The most common way to take CBD is in the form of CBD Oil. A
-                    few drops under the tongue offers an excellent absorption
-                    rate through the sublingual gland and is also fast acting.
-                  </p>
+          <div className="faq-list">
+            {faqData.map((faq, index) => (
+              <div key={index} className="faq-item">
+                <div
+                  className={
+                    expandedIndex === index
+                      ? "faq-question expanded"
+                      : "faq-question"
+                  }
+                  onClick={() => toggleQuestion(index)}
+                >
+                  {faq.question}
                 </div>
+                {expandedIndex === index && (
+                  <div className="faq-answer">{faq.answer}</div>
+                )}
               </div>
-            </div>
-            <div className="col-12 col-md-3">
-              <div className="pr_card">
-                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
-                <div className="p-1">
-                  <h2>CBD Oil</h2>
-                  <p>
-                    The most common way to take CBD is in the form of CBD Oil. A
-                    few drops under the tongue offers an excellent absorption
-                    rate through the sublingual gland and is also fast acting.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-3">
-              <div className="pr_card">
-                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
-                <div className="p-1">
-                  <h2>CBD Oil</h2>
-                  <p>
-                    The most common way to take CBD is in the form of CBD Oil. A
-                    few drops under the tongue offers an excellent absorption
-                    rate through the sublingual gland and is also fast acting.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-3">
-              <div className="pr_card">
-                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
-                <div className="p-1">
-                  <h2>CBD Oil</h2>
-                  <p>
-                    The most common way to take CBD is in the form of CBD Oil. A
-                    few drops under the tongue offers an excellent absorption
-                    rate through the sublingual gland and is also fast acting.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-3">
-              <div className="pr_card">
-                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
-                <div className="p-1">
-                  <h2>CBD Oil</h2>
-                  <p>
-                    The most common way to take CBD is in the form of CBD Oil. A
-                    few drops under the tongue offers an excellent absorption
-                    rate through the sublingual gland and is also fast acting.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-3">
-              <div className="pr_card">
-                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
-                <div className="p-1">
-                  <h2>CBD Oil</h2>
-                  <p>
-                    The most common way to take CBD is in the form of CBD Oil. A
-                    few drops under the tongue offers an excellent absorption
-                    rate through the sublingual gland and is also fast acting.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-3">
-              <div className="pr_card">
-                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
-                <div className="p-1">
-                  <h2>CBD Oil</h2>
-                  <p>
-                    The most common way to take CBD is in the form of CBD Oil. A
-                    few drops under the tongue offers an excellent absorption
-                    rate through the sublingual gland and is also fast acting.
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
+          {/* <div className="row">
+            <div className="col-12 col-md-3">
+              <div className="pr_card">
+                <img src={require("../assets/images/cbd_oil.jpeg")} alt="" />
+                <div className="p-1">
+                  <h2>CBD Oil</h2>
+                  <p>
+                    The most common way to take CBD is in the form of CBD Oil. A
+                    few drops under the tongue offers an excellent absorption
+                    rate through the sublingual gland and is also fast acting.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div> */}
         </div>
       </section>
     </>

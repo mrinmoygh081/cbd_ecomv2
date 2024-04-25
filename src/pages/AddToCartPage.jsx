@@ -130,7 +130,7 @@ const AddToCartPage = () => {
                         className="btn-reset product-card__btn"
                         onClick={cartHandler}
                       >
-                        Add Shipping Address
+                        ADD SHIPPING
                       </button>
                     </div>
                   </div>
