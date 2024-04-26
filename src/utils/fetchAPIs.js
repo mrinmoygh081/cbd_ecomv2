@@ -39,7 +39,7 @@ export const apiCallBack = async (method, slug, payload, token) => {
     maxBodyLength: Infinity,
     url: path,
     headers: {
-      Authorization: `Bearer ${token}`,
+      token,
     },
     // Conditionally set the Content-Type based on the payload
     ...(payload instanceof FormData

@@ -40,12 +40,12 @@ const Orders = () => {
                     </div>
                     <div className="col-md-9 col-12">
                       <div>
-                        <Link to={`/order-details/${item?.image}`}>
+                        <Link to={`/order-details/${item?.orderId}`}>
                           <h3>{item?.name}</h3>
                           <p>
                             Order Date:{" "}
-                            {item?.created_at &&
-                              new Date(item?.created_at).toLocaleDateString()}
+                            {item?.createdAt &&
+                              new Date(item?.createdAt).toLocaleDateString()}
                           </p>
                         </Link>
                       </div>

@@ -20,6 +20,7 @@ import ShippingAddress from "./pages/ShippingAddress";
 import ProductDetails from "./pages/ProductDetails";
 import UserLogin from "./pages/UserLogin";
 import { AdminOrders } from "./pages/admin/AdminOrders";
+import OrderDetails from "./pages/OrderDetails";
 
 const Layout = () => {
   const { token } = useSelector((state) => state.auth);
@@ -29,19 +30,19 @@ const Layout = () => {
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/admin" element={<Login />} />
           <Route exact path="/login" element={<UserLogin />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/product/:id" element={<ProductDetails />} />
           <Route exact path="/wishlist" element={<Wishlists />} />
           <Route exact path="/orders" element={<Orders />} />
+          <Route exact path="/order-details/:id" element={<OrderDetails />} />
           <Route exact path="/faqs" element={<FAQs />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/cart" element={<AddToCartPage />} />
           <Route exact path="/coffee" element={<Coffee />} />
           <Route exact path="/shipping" element={<ShippingAddress />} />
-          {token && (
+          {token ? (
             <>
               <Route exact path="/admin" element={<AdminProducts />} />
               <Route exact path="/admin/products" element={<AdminProducts />} />
@@ -53,6 +54,8 @@ const Layout = () => {
               <Route exact path="/admin/orders" element={<AdminOrders />} />
               <Route exact path="/admin/categories" element={<Category />} />
             </>
+          ) : (
+            <Route exact path="/admin" element={<Login />} />
           )}
         </Routes>
         <Footer />
