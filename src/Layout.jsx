@@ -20,6 +20,7 @@ import ShippingAddress from "./pages/ShippingAddress";
 import ProductDetails from "./pages/ProductDetails";
 import UserLogin from "./pages/UserLogin";
 import { AdminOrders } from "./pages/admin/AdminOrders";
+import { AdminOrdersDetails } from "./pages/admin/AdminOrdersDetails";
 import OrderDetails from "./pages/OrderDetails";
 
 const Layout = () => {
@@ -39,6 +40,11 @@ const Layout = () => {
                 element={<NewProducts />}
               />
               <Route exact path="/admin/orders" element={<AdminOrders />} />
+              <Route
+                exact
+                path="/admin/orders-details/:id"
+                element={<AdminOrdersDetails />}
+              />
               <Route exact path="/admin/categories" element={<Category />} />
             </>
           ) : (

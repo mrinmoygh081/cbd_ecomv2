@@ -31,7 +31,7 @@ const Header = () => {
       // Fetch all categories
       let result = [];
       let categories = "";
-      const res = await apiCallBack("GET", "allCategory", null, null);
+      const res = await apiCallBack("GET", "user/category", null, null);
       if (res.status) {
         categories = res.data;
       }
@@ -46,7 +46,11 @@ const Header = () => {
               },
               null
             );
-            result.push({ cat_name: item.name, products: products.data });
+            result.push({
+              cat_name: item.name,
+              cat_id: item?.cat_id,
+              products: products.data,
+            });
           })
         );
       }
@@ -150,7 +154,7 @@ const Header = () => {
                   </Link>
                 </div>
               </div>
-              <div className="col-md-7">
+              <div className="col-md-8">
                 <div className="header_middle">
                   <ul>
                     {checkTypeArr(productByCat) &&
@@ -159,7 +163,7 @@ const Header = () => {
                           <Link to={`/products?cat_id=${item?.cat_id}`}>
                             {item?.cat_name}
                           </Link>
-                          <ul className="drop">
+                          {/* <ul className="drop">
                             {checkTypeArr(item?.products) &&
                               item.products.map((it, index) => (
                                 <li key={index}>
@@ -168,13 +172,13 @@ const Header = () => {
                                   </Link>
                                 </li>
                               ))}
-                          </ul>
+                          </ul> */}
                         </li>
                       ))}
                   </ul>
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-2">
                 <div className="header_right">
                   <ul>
                     <li className="no_btn">

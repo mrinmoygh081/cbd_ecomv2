@@ -17,13 +17,24 @@ const AddToCartPage = () => {
   // const [isLoading, setIsLoading] = useState(false);
   const cartItems = useSelector((state) => state.cart);
   const [orderedProducts, setOrderedProducts] = useState([]);
+  const [price, setPrice] = useState({
+    subTotal: 0,
+    total: 0,
+    delivery: 34,
+  });
 
   useEffect(() => {
     if (cartItems && cartItems.length > 0) {
+      let subTotal = 0;
       let d = cartItems.map((item) => {
+        subTotal += parseFloat(item.price);
         return { id: item.product_id, quantity: item.qty };
       });
+      let total = 0;
+      let delivery = 34;
+      total = parseFloat(subTotal) + delivery;
       setOrderedProducts(d);
+      setPrice({ ...price, subTotal, total });
     }
   }, [cartItems]);
 
@@ -101,13 +112,13 @@ const AddToCartPage = () => {
                     <div className="cart_item">
                       <h3>Summary</h3>
                       <p>
-                        Subtotal: <b>$14000</b>
+                        Subtotal: <b>${price?.subTotal}</b>
                       </p>
                       <p>
-                        Delivery Charge: <b>$14000</b>
+                        Delivery Charge: <b>${price?.delivery}</b>
                       </p>
                       <p>
-                        Total amount to be paid: <b>$14000</b>
+                        Total amount to be paid: <b>${price?.total}</b>
                       </p>
                       <div className="payment_mode py-3">
                         <h4>Payment Mode:</h4>

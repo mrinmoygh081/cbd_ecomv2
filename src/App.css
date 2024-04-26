@@ -91,6 +91,9 @@ img {
 .megamenu {
   position: relative;
 }
+.megamenu > a {
+  font-size: 16px;
+}
 .megamenu .drop {
   position: absolute;
   top: 45px;

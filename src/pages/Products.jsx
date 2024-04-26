@@ -32,7 +32,11 @@ const Products = () => {
               },
               null
             );
-            result.push({ cat_name: item.name, products: products.data });
+            result.push({
+              cat_name: item.name,
+              cat_id: item?.cat_id,
+              products: products.data,
+            });
           })
         );
       }
@@ -91,14 +95,19 @@ const Products = () => {
                       productByCat.map((item, i) => (
                         <li key={i}>
                           <div className="cat_choice_list">
-                            <Link to={"/"}>{item?.cat_name}</Link>
+                            {console.log("product by category", productByCat)}
+                            <Link to={`/products?cat_id=${item?.cat_id}`}>
+                              {item?.cat_name}
+                            </Link>
                             <FiPlusCircle />
                           </div>
                           <ul className="subdrop">
                             {checkTypeArr(item?.products) &&
-                              item?.products.map((item, i) => (
+                              item?.products.map((it, i) => (
                                 <li key={i}>
-                                  <Link to={"/"}>{item?.name}</Link>
+                                  <Link to={`/product/${it?.product_id}`}>
+                                    {it?.name}
+                                  </Link>
                                 </li>
                               ))}
                           </ul>

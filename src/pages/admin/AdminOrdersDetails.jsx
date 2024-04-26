@@ -7,18 +7,20 @@ import HeaderAdmin from "../../components/HeaderAdmin";
 import { FaSearch } from "react-icons/fa";
 import { formatDate } from "../../utils/dateTimeFormat";
 
-export const AdminOrders = () => {
+export const AdminOrdersDetails = () => {
+  const { id } = useParams();
   const { token } = useSelector((state) => state.auth);
   const [data, setData] = useState(null);
-  // let backUrl = process.env.REACT_APP_BACKEND_URL;
+  let backUrl = process.env.REACT_APP_BACKEND_URL;
   const dispatch = useDispatch();
+  console.log("id", id);
 
   const getOrders = async () => {
     let body = {
       take: 100,
       skip: 0,
     };
-    const d = await apiCallBack("GET", `admin/orders`, body, token);
+    const d = await apiCallBack("GET", `admin/orders/${id}`, body, token);
     if (d === "logout") {
       window.location.replace("/admin");
       dispatch(logoutHandler());
@@ -84,7 +86,7 @@ export const AdminOrders = () => {
                 >
                   <thead className="text-center">
                     <tr>
-                      <th>ID</th>
+                      <th>ORDER ID</th>
                       <th>Price</th>
                       <th>Delivery Price</th>
                       <th>Total Price</th>
@@ -94,7 +96,7 @@ export const AdminOrders = () => {
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>ID</th>
+                      <th>ORDER ID</th>
                       <th>Price</th>
                       <th>Brand</th>
                       <th>Quantity</th>
@@ -115,13 +117,12 @@ export const AdminOrders = () => {
                               {item?.createdAt && formatDate(item?.createdAt)}
                             </td>
                             <td>
-                              <Link
-                                to={`/admin/orders-details/${item?.orderId}`}
+                              <button
                                 type="button"
                                 className="btn btn-success me-2"
                               >
                                 View
-                              </Link>
+                              </button>
                               {/* <button
                                 type="button"
                                 className="btn btn-success me-2"
