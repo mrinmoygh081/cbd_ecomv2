@@ -27,21 +27,8 @@ const Layout = () => {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        {!token && <Header />}
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/login" element={<UserLogin />} />
-          <Route exact path="/products" element={<Products />} />
-          <Route exact path="/product/:id" element={<ProductDetails />} />
-          <Route exact path="/wishlist" element={<Wishlists />} />
-          <Route exact path="/orders" element={<Orders />} />
-          <Route exact path="/order-details/:id" element={<OrderDetails />} />
-          <Route exact path="/faqs" element={<FAQs />} />
-          <Route exact path="/contact" element={<Contact />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/cart" element={<AddToCartPage />} />
-          <Route exact path="/coffee" element={<Coffee />} />
-          <Route exact path="/shipping" element={<ShippingAddress />} />
           {token ? (
             <>
               <Route exact path="/admin" element={<AdminProducts />} />
@@ -55,10 +42,29 @@ const Layout = () => {
               <Route exact path="/admin/categories" element={<Category />} />
             </>
           ) : (
-            <Route exact path="/admin" element={<Login />} />
+            <>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/admin" element={<Login />} />
+              <Route exact path="/login" element={<UserLogin />} />
+              <Route exact path="/products" element={<Products />} />
+              <Route exact path="/product/:id" element={<ProductDetails />} />
+              <Route exact path="/wishlist" element={<Wishlists />} />
+              <Route exact path="/orders" element={<Orders />} />
+              <Route
+                exact
+                path="/order-details/:id"
+                element={<OrderDetails />}
+              />
+              <Route exact path="/faqs" element={<FAQs />} />
+              <Route exact path="/contact" element={<Contact />} />
+              <Route exact path="/about" element={<About />} />
+              <Route exact path="/cart" element={<AddToCartPage />} />
+              <Route exact path="/coffee" element={<Coffee />} />
+              <Route exact path="/shipping" element={<ShippingAddress />} />
+            </>
           )}
         </Routes>
-        <Footer />
+        {!token && <Footer />}
       </BrowserRouter>
     </>
   );
