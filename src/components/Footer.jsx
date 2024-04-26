@@ -59,92 +59,42 @@ export const Footer = () => {
                   <div className="footer-widget gallery-widget">
                     <h2>Gallery</h2>
                     <div className="widget-content">
-                      <div className="http://t.commonsupport.com/morris/images-outer clearfix">
-                        <figure className="image-box">
-                          <Link
-                            to="#"
-                            className="lightbox-image"
-                            data-fancybox="footer-gallery"
-                            title="Image Title Here"
-                            data-fancybox-group="footer-gallery"
-                          >
-                            <img
-                              src="https://i.ibb.co/CKNmhMX/blog1.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </figure>
-                        <figure className="image-box">
-                          <Link
-                            to="#"
-                            className="lightbox-image"
-                            data-fancybox="footer-gallery"
-                            title="Image Title Here"
-                            data-fancybox-group="footer-gallery"
-                          >
-                            <img
-                              src="https://i.ibb.co/m5yGbdR/blog2.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </figure>
-                        <figure className="image-box">
-                          <Link
-                            to="#"
-                            className="lightbox-image"
-                            data-fancybox="footer-gallery"
-                            title="Image Title Here"
-                            data-fancybox-group="footer-gallery"
-                          >
-                            <img
-                              src="https://i.ibb.co/CKNmhMX/blog1.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </figure>
-                        <figure className="image-box">
-                          <Link
-                            to="#"
-                            className="lightbox-image"
-                            data-fancybox="footer-gallery"
-                            title="Image Title Here"
-                            data-fancybox-group="footer-gallery"
-                          >
-                            <img
-                              src="https://i.ibb.co/m5yGbdR/blog2.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </figure>
-                        <figure className="image-box">
-                          <Link
-                            to="#"
-                            className="lightbox-image"
-                            data-fancybox="footer-gallery"
-                            title="Image Title Here"
-                            data-fancybox-group="footer-gallery"
-                          >
-                            <img
-                              src="https://i.ibb.co/CKNmhMX/blog1.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </figure>
-                        <figure className="image-box">
-                          <Link
-                            to="#"
-                            className="lightbox-image"
-                            data-fancybox="footer-gallery"
-                            title="Image Title Here"
-                            data-fancybox-group="footer-gallery"
-                          >
-                            <img
-                              src="https://i.ibb.co/m5yGbdR/blog2.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </figure>
-                      </div>
+                      <figure className="image-box">
+                        <img
+                          src={require("../assets/gallery/cbd cream.png")}
+                          alt=""
+                        />
+                      </figure>
+                      <figure className="image-box">
+                        <img
+                          src={require("../assets/gallery/delta 8 org.png")}
+                          alt=""
+                        />
+                      </figure>
+                      <figure className="image-box">
+                        <img
+                          src={require("../assets/gallery/delta 8 pie.png")}
+                          alt=""
+                        />
+                      </figure>
+                      <figure className="image-box">
+                        <img
+                          src={require("../assets/gallery/delta 8 ren.png")}
+                          alt=""
+                        />
+                      </figure>
+                      <figure className="image-box">
+                        <img
+                          src={require("../assets/gallery/delta 8 wat.png")}
+                          alt=""
+                        />
+                      </figure>
+                      <figure className="image-box">
+                        <img
+                          src={require("../assets/gallery/milk chocolate.png")}
+                          alt=""
+                        />
+                      </figure>
                     </div>
                   </div>
                 </div>
@@ -153,11 +103,9 @@ export const Footer = () => {
                   <div className="footer-widget info-widget">
                     <h2>Contact Info</h2>
                     <ul className="info-list">
-                      <li>
-                        Flat 20, Reynolds Neck, North Hele naville, FV77 8WS
-                      </li>
-                      <li>+2(305) 587-3407</li>
-                      <li>info@morris.com</li>
+                      <li>2286 Cascade Rd, Atlanta, GA</li>
+                      <li>(404)- 454-8830</li>
+                      <li>cbdcityalt@gmail.com</li>
                     </ul>
                     <ul className="social-links">
                       <li className="google">
