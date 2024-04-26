@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
-import { deleteAPI, getAPI, postAPI, putAPI } from "../../utils/fetchAPIs";
+import {
+  apiCallBack,
+  deleteAPI,
+  getAPI,
+  postAPI,
+  putAPI,
+} from "../../utils/fetchAPIs";
 import { toast } from "react-toastify";
-import { inputChange, reConfirm } from "../../Helper/smallFun";
+import {
+  handleFileChange,
+  inputChange,
+  reConfirm,
+} from "../../Helper/smallFun";
 import HeaderAdmin from "../../components/HeaderAdmin";
 import { FaSearch } from "react-icons/fa";
 import { FaPencil, FaTrash } from "react-icons/fa6";
@@ -13,10 +23,12 @@ export const Category = () => {
   const [data, setData] = useState(null);
   const [addForm, setAddForm] = useState({
     name: "",
+    images: "",
     parentId: "0",
   });
   const [editForm, setEditForm] = useState({
     name: "",
+    images: "",
     parentId: "0",
   });
 
@@ -52,12 +64,25 @@ export const Category = () => {
 
   const addBtn = async () => {
     if (addForm?.name !== "") {
-      const data = await postAPI("admin/category", addForm, token);
+      const { name, images } = addForm;
+      if (!images || !name) {
+        return toast.warn("All fields are required.");
+      }
+      console.log(name, images);
+      const fdToSend = new FormData();
+      fdToSend.append("name", name);
+      fdToSend.append("images", images);
+      fdToSend.append("parentId", "0");
+      console.log(fdToSend);
+
+      // const data = await postAPI("admin/category", fdToSend, token);
+      const data = await apiCallBack("POST", "admin/category", fdToSend, token);
       if (data?.status) {
-        toast.success("The product is added succesfully");
+        toast.success("The category has been added succesfully");
         await getCategories();
         setAddForm({
           name: "",
+          images: "",
           parentId: "0",
         });
       } else {
@@ -80,6 +105,7 @@ export const Category = () => {
         await getCategories();
         setEditForm({
           name: "",
+          images: "",
           parentId: "0",
         });
       } else {
@@ -104,7 +130,6 @@ export const Category = () => {
 
           <div className="card mb-3 overflow">
             <div className="card-header">
-              <div></div>
               <form className="form-inline my-2 my-lg-0 mr-lg-2">
                 <div className="input-group">
                   <input
@@ -137,6 +162,19 @@ export const Category = () => {
                       />
                       <label htmlFor="floatingInput">Category Name</label>
                     </div>
+                    <div className="form-floating mb-3 pt-2 w-100">
+                      <input
+                        type="file"
+                        name="images"
+                        className="form-control"
+                        id="floatingInput"
+                        placeholder=""
+                        onChange={(e) =>
+                          handleFileChange(e, addForm, setAddForm)
+                        }
+                      />
+                      <label htmlFor="floatingInput">Category Image</label>
+                    </div>
 
                     <button
                       onClick={addBtn}
@@ -163,6 +201,7 @@ export const Category = () => {
                         />
                         <label htmlFor="floatingInput">Category Name</label>
                       </div>
+
                       <div className="text-start py-3">
                         <button
                           onClick={updateBtn}
@@ -180,12 +219,14 @@ export const Category = () => {
                       <thead className="text-center">
                         <tr>
                           <th>Name</th>
+                          <th>Image</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
                           <th>Name</th>
+                          <th>Image</th>
                           <th>Action</th>
                         </tr>
                       </tfoot>
@@ -195,6 +236,13 @@ export const Category = () => {
                             <Fragment key={i}>
                               <tr>
                                 <td>{item?.name}</td>
+                                <td>
+                                  <img
+                                    src={`${process.env.REACT_APP_BACKEND_URL}${item?.image}`}
+                                    alt=""
+                                    style={{ maxWidth: "120px" }}
+                                  />
+                                </td>
                                 <td>
                                   <button
                                     type="button"

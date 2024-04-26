@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
-import { deleteAPI, postAPI } from "../../utils/fetchAPIs";
-import { toast } from "react-toastify";
-import { reConfirm } from "../../Helper/smallFun";
+import { postAPI } from "../../utils/fetchAPIs";
 import { logoutHandler } from "../../redux/slices/loginSlice";
 import HeaderAdmin from "../../components/HeaderAdmin";
-import { FaTrash } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 
 export const AdminOrders = () => {
@@ -20,7 +17,7 @@ export const AdminOrders = () => {
       take: 100,
       skip: 0,
     };
-    const d = await postAPI("admin/getProduct", body, token);
+    const d = await postAPI("admin/orders", body, token);
     if (d === "logout") {
       window.location.replace("/admin");
       dispatch(logoutHandler());
