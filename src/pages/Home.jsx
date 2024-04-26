@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import { apiCallBack } from "../utils/fetchAPIs";
 import { checkTypeArr } from "../utils/smailFun";
 import FAQSection from "../components/FAQSection";
-import { faqData } from "../data/data";
+import { faqData, vidData } from "../data/data";
+import YtIfram from "../components/YtIfram";
+import News from "./News";
 
 const Home = () => {
   const [cat, setCat] = useState(null);
@@ -131,6 +133,64 @@ const Home = () => {
                       item={item}
                     />
                   ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="container my-5">
+        <section className="testimonials">
+          <div className="container">
+            <div className="section_header">
+              <h2>NEWS</h2>
+            </div>
+            <div className="product-cards__slider">
+              <div className="row">
+                {checkTypeArr(vidData) &&
+                  vidData
+                    .filter((it) => it.type === "news")
+                    .map(
+                      (item, i) =>
+                        i < 3 && (
+                          <div className="col-md-4" key={i}>
+                            <YtIfram id={item?.urlId} />
+                          </div>
+                        )
+                    )}
+              </div>
+              <div className="text-center mt-4 ">
+                <Link to="/news" className="btn_style text-center">
+                  READ MORE
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section className="testimonials">
+        <div className="container">
+          <div className="section_header">
+            <h2>Testimonials</h2>
+          </div>
+          <div className="product-cards__slider">
+            <div className="row">
+              {checkTypeArr(vidData) &&
+                vidData
+                  .filter((it) => it.type === "testimonial")
+                  .map(
+                    (item, i) =>
+                      i < 3 && (
+                        <div className="col-md-4" key={i}>
+                          <YtIfram id={item?.urlId} />
+                        </div>
+                      )
+                  )}
+            </div>
+            <div className="text-center mt-4 ">
+              <Link to="/testimonials" className="btn_style text-center">
+                READ MORE
+              </Link>
             </div>
           </div>
         </div>

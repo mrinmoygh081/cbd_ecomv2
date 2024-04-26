@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { FaCartShopping, FaRegHeart } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { apiCallBack } from "../utils/fetchAPIs";
-import StarRatings from "../components/StarRatings";
-import { addCartHandler } from "../redux/slices/cartSlice";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const OrderDetails = () => {
-  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
   const [data, setData] = useState(null);
   const { id } = useParams();
   const getData = async () => {
-    let obj = {
-      productId: id,
-    };
-    const d = await apiCallBack("POST", "user/product", obj, null);
+    const d = await apiCallBack("POST", `user/orders/${id}`, null, token);
     if (d?.status && d?.data.length > 0) {
       setData(d?.data[0]);
     }
   };
-  console.log(data);
+  console.log("data", data);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
+
   return (
     <>
       <div className="container py-5">
@@ -44,12 +39,6 @@ const OrderDetails = () => {
               <p>{data?.description}</p>
               <h3>GUIDELINE</h3>
               <p>{data?.guideline}</p>
-              <div className="ratings">
-                <StarRatings rating={data?.rating} />
-                {/* <FaRegStar className="star" />
-                {data?.rating}
-                <IoIosStar /> */}
-              </div>
               <div className="product-card__info">
                 <div className="product-card__price price">
                   <span className="price__current price__current--small">

@@ -27,12 +27,20 @@ const AddToCartPage = () => {
     if (cartItems && cartItems.length > 0) {
       let subTotal = 0;
       let d = cartItems.map((item) => {
-        subTotal += parseFloat(item.price);
+        if (typeof item?.price === "number") {
+          subTotal += parseFloat(item?.price.toFixed(2));
+        } else {
+          subTotal = "";
+        }
         return { id: item.product_id, quantity: item.qty };
       });
       let total = 0;
       let delivery = 34;
-      total = parseFloat(subTotal) + delivery;
+      if (subTotal) {
+        total = parseFloat(subTotal.toFixed(2)) + delivery;
+      } else {
+        total = "";
+      }
       setOrderedProducts(d);
       setPrice({ ...price, subTotal, total });
     }

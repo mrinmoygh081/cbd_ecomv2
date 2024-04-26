@@ -75,8 +75,6 @@ const Header = () => {
     getProductsByCat();
   }, []);
 
-  console.log(productByCat);
-
   return (
     <>
       {/* Desktop Header */}
@@ -100,6 +98,12 @@ const Header = () => {
                   </li>
                   <li>
                     <Link to={"/coffee"}>Coffee</Link>
+                  </li>
+                  <li>
+                    <Link to={"/news"}>News</Link>
+                  </li>
+                  <li>
+                    <Link to={"/testimonials"}>Testimonials</Link>
                   </li>
                 </ul>
               </div>

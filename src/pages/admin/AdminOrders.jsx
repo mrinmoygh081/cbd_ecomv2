@@ -84,7 +84,7 @@ export const AdminOrders = () => {
                 >
                   <thead className="text-center">
                     <tr>
-                      <th>ID</th>
+                      <th>ORDER ID</th>
                       <th>Price</th>
                       <th>Delivery Price</th>
                       <th>Total Price</th>
@@ -94,7 +94,7 @@ export const AdminOrders = () => {
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>ID</th>
+                      <th>ORDER ID</th>
                       <th>Price</th>
                       <th>Brand</th>
                       <th>Quantity</th>

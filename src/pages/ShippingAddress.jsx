@@ -34,7 +34,7 @@ const ShippingAddress = () => {
   const [userToken, setUserToken] = useState(null);
 
   const orderHandler = async () => {
-    const { country, state, city, pincode, landmark } = form;
+    const { country, state, city, pincode } = form;
     if (!country || !state || !city || !pincode || !form?.location) {
       return toast.warn("Please check all required fields.");
     }
@@ -45,7 +45,7 @@ const ShippingAddress = () => {
         products: location.state?.orderedProducts,
       };
       console.log(body);
-      let d = postAPI("user/codorder", body, userToken);
+      let d = await postAPI("user/codorder", body, userToken);
       if (d.status) {
         navigate("/");
         toast.success("Your order has been placed!");
@@ -104,7 +104,7 @@ const ShippingAddress = () => {
                                 value={form?.location}
                                 onChange={(e) => inputChange(e, form, setForm)}
                               />
-                              <label htmlFor="Location">Location</label>
+                              <label htmlFor="Location">Street Line</label>
                             </div>
                           </div>
                           <div className="col-md-4 col-12">

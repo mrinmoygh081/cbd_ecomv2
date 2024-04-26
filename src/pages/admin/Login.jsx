@@ -26,6 +26,7 @@ const Login = () => {
     const data = await postAPI("login/admin", form, null);
     if (data?.status) {
       toast.success("You have successfully logged in!");
+      data.role = "admin";
       dispatch(loginHandler(data));
     } else {
       toast.error(data?.msg);

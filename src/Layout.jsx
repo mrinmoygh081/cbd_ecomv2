@@ -22,15 +22,17 @@ import UserLogin from "./pages/UserLogin";
 import { AdminOrders } from "./pages/admin/AdminOrders";
 import { AdminOrdersDetails } from "./pages/admin/AdminOrdersDetails";
 import OrderDetails from "./pages/OrderDetails";
+import News from "./pages/News";
+import Testimonials from "./pages/Testimonials";
 
 const Layout = () => {
-  const { token } = useSelector((state) => state.auth);
+  const { token, role } = useSelector((state) => state.auth);
   return (
     <>
       <BrowserRouter>
-        {!token && <Header />}
+        {(!token || role !== "admin") && <Header />}
         <Routes>
-          {token ? (
+          {token && role === "admin" ? (
             <>
               <Route exact path="/admin" element={<AdminProducts />} />
               <Route exact path="/admin/products" element={<AdminProducts />} />
@@ -56,6 +58,8 @@ const Layout = () => {
               <Route exact path="/product/:id" element={<ProductDetails />} />
               <Route exact path="/wishlist" element={<Wishlists />} />
               <Route exact path="/orders" element={<Orders />} />
+              <Route exact path="/news" element={<News />} />
+              <Route exact path="/testimonials" element={<Testimonials />} />
               <Route
                 exact
                 path="/order-details/:id"
@@ -70,7 +74,7 @@ const Layout = () => {
             </>
           )}
         </Routes>
-        {!token && <Footer />}
+        {(!token || role !== "admin") && <Footer />}
       </BrowserRouter>
     </>
   );
