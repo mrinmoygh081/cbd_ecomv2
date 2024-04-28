@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
 
 // const initialState = {
 //   data: [],
@@ -48,9 +47,9 @@ export const cartStage = createSlice({
       }
       existingItem.price = parseInt(existingItem.price) * existingItem.qty;
     },
-  },
-  cleanCartHandler: () => {
-    return [];
+    cleanCartHandler: (state) => {
+      return [];
+    },
   },
 });
 

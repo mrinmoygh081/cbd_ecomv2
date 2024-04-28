@@ -53,15 +53,19 @@ const Home = () => {
             </p>
           </div>
           <div className="row">
+            {console.log(cat)}
             {cat &&
-              cat.map((item, i) => (
-                <Product
-                  name={item?.name}
-                  id={item?.cat_id}
-                  image={item?.image}
-                  key={i}
-                />
-              ))}
+              cat.map(
+                (item, i) =>
+                  item?.parent_id === 0 && (
+                    <Product
+                      name={item?.name}
+                      id={item?.cat_id}
+                      image={item?.image}
+                      key={i}
+                    />
+                  )
+              )}
           </div>
         </div>
       </section>

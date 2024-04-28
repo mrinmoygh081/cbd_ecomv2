@@ -22,26 +22,26 @@ const Products = () => {
         categories = res.data;
         setCat(categories);
       }
-      if (checkTypeArr(categories)) {
-        await Promise.all(
-          await categories.map(async (item, index) => {
-            const products = await apiCallBack(
-              "POST",
-              "user/product",
-              {
-                catId: item?.cat_id,
-              },
-              null
-            );
-            result.push({
-              cat_name: item.name,
-              cat_id: item?.cat_id,
-              products: products.data,
-            });
-          })
-        );
-      }
-      setProductByCat(result);
+      // if (checkTypeArr(categories)) {
+      //   await Promise.all(
+      //     await categories.map(async (item, index) => {
+      //       const products = await apiCallBack(
+      //         "POST",
+      //         "user/product",
+      //         {
+      //           catId: item?.cat_id,
+      //         },
+      //         null
+      //       );
+      //       result.push({
+      //         cat_name: item.name,
+      //         cat_id: item?.cat_id,
+      //         products: products.data,
+      //       });
+      //     })
+      //   );
+      // }
+      // setProductByCat(result);
     } catch (error) {
       console.error("Error fetching products by category:", error);
       throw error;
@@ -54,11 +54,10 @@ const Products = () => {
     setCatId(catIdParam);
   }, [location.search]);
 
-  console.log("productByCat", productByCat);
+  // console.log("productByCat", productByCat);
   console.log("data", data);
 
   const getProdByCatList = async (catId) => {
-    console.log("getProdByCatList", catId);
     let body;
     if (catId) {
       body = {
@@ -67,7 +66,9 @@ const Products = () => {
     } else {
       body = null;
     }
+    console.log("body", body);
     const res = await apiCallBack("POST", "user/product", body, null);
+    console.log("Res", res);
     if (res?.status) {
       setData(res?.data);
     }
@@ -77,6 +78,8 @@ const Products = () => {
     getProductsByCat();
     getProdByCatList(catId);
   }, [catId]);
+
+  console.log("catId", catId);
 
   return (
     <>

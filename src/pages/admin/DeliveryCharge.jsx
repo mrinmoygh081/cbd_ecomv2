@@ -103,7 +103,7 @@ export const DeliveryCharge = () => {
                         <tr>
                           <th>ID</th>
                           <th>Amount</th>
-                          <th>DateTime</th>
+                          {/* <th>DateTime</th> */}
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -111,7 +111,7 @@ export const DeliveryCharge = () => {
                         <tr>
                           <th>ID</th>
                           <th>Amount</th>
-                          <th>DateTime</th>
+                          {/* <th>DateTime</th> */}
                           <th>Action</th>
                         </tr>
                       </tfoot>
@@ -122,10 +122,10 @@ export const DeliveryCharge = () => {
                               <tr>
                                 <td>{item?.deliveryChargeId}</td>
                                 <td>{item?.amount}</td>
-                                <td>
+                                {/* <td>
                                   {item?.created_at &&
                                     formatDate(item?.created_at)}
-                                </td>
+                                </td> */}
                                 <td>
                                   <button
                                     type="button"
