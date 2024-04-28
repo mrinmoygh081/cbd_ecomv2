@@ -16,45 +16,18 @@ const Header = () => {
   const { token, name } = useSelector((state) => state.auth);
   const [isActive, setIsActive] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [productByCat, setProductByCat] = useState(null);
   const [cat, setCat] = useState(null);
 
   const getCat = async () => {
-    const d = await apiCallBack("GET", "allCategory", null, null);
-    if (d?.status) {
-      setCat(d?.data);
-    }
-  };
-
-  const getProductsByCat = async () => {
     try {
       // Fetch all categories
-      let result = [];
+      // let result = [];
       let categories = "";
       const res = await apiCallBack("GET", "user/category", null, null);
       if (res.status) {
         categories = res.data;
+        setCat(categories);
       }
-      if (checkTypeArr(categories)) {
-        await Promise.all(
-          await categories.map(async (item, index) => {
-            const products = await apiCallBack(
-              "POST",
-              "user/product",
-              {
-                catId: item?.cat_id,
-              },
-              null
-            );
-            result.push({
-              cat_name: item.name,
-              cat_id: item?.cat_id,
-              products: products.data,
-            });
-          })
-        );
-      }
-      setProductByCat(result);
     } catch (error) {
       console.error("Error fetching products by category:", error);
       throw error;
@@ -72,7 +45,6 @@ const Header = () => {
 
   useEffect(() => {
     getCat();
-    getProductsByCat();
   }, []);
 
   return (
@@ -161,24 +133,30 @@ const Header = () => {
               <div className="col-md-8">
                 <div className="header_middle">
                   <ul>
-                    {checkTypeArr(productByCat) &&
-                      productByCat.map((item, i) => (
-                        <li key={i} className="megamenu">
-                          <Link to={`/products?cat_id=${item?.cat_id}`}>
-                            {item?.cat_name}
-                          </Link>
-                          {/* <ul className="drop">
-                            {checkTypeArr(item?.products) &&
-                              item.products.map((it, index) => (
-                                <li key={index}>
-                                  <Link to={`/product/${it?.product_id}`}>
-                                    {it?.name}
-                                  </Link>
-                                </li>
-                              ))}
-                          </ul> */}
-                        </li>
-                      ))}
+                    {checkTypeArr(cat) &&
+                      cat.map((item, i) => {
+                        return (
+                          <li key={i} className="megamenu">
+                            <Link to={`/products?cat_id=${item?.cat_id}`}>
+                              {item?.name}
+                            </Link>
+                            {checkTypeArr(item?.children) &&
+                              item?.children.length > 0 && (
+                                <ul className="drop">
+                                  {item.children.map((it, index) => (
+                                    <li key={index}>
+                                      <Link
+                                        to={`/products?cat_id=${it?.cat_id}`}
+                                      >
+                                        {it?.name}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               </div>

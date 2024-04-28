@@ -24,23 +24,24 @@ const AddToCartPage = () => {
   });
 
   useEffect(() => {
+    console.log("cartItems", cartItems);
     if (cartItems && cartItems.length > 0) {
       let subTotal = 0;
       let d = cartItems.map((item) => {
-        if (typeof item?.price === "number") {
-          subTotal += parseFloat(item?.price.toFixed(2));
-        } else {
-          subTotal = "";
-        }
+        subTotal += parseFloat(item?.price);
+        // if (typeof item?.price === "number") {
+        // } else {
+        //   subTotal = "";
+        // }
         return { id: item.product_id, quantity: item.qty };
       });
       let total = 0;
       let delivery = 34;
-      if (subTotal) {
-        total = parseFloat(subTotal.toFixed(2)) + delivery;
-      } else {
-        total = "";
-      }
+      total = parseFloat(subTotal) + delivery;
+      // if (subTotal || subTotal === 0) {
+      // } else {
+      //   total = "";
+      // }
       setOrderedProducts(d);
       setPrice({ ...price, subTotal, total });
     }
@@ -68,6 +69,7 @@ const AddToCartPage = () => {
               <div className="row">
                 <div className="col-md-8 col-12">
                   <div className="cart_card">
+                    {console.log(cartItems)}
                     {cartItems &&
                       cartItems.length > 0 &&
                       cartItems.map((item, i) => (
@@ -136,7 +138,7 @@ const AddToCartPage = () => {
                             type="radio"
                             name="flexRadioDefault"
                             id="flexRadioDefault1"
-                            checked
+                            defaultChecked
                           />
                           <label
                             className="form-check-label"

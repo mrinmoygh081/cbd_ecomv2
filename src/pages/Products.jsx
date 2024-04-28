@@ -8,7 +8,7 @@ import { checkTypeArr } from "../utils/smailFun";
 const Products = () => {
   const [data, setData] = useState(null);
   const [catId, setCatId] = useState(null);
-  // const [cat, setCat] = useState(null);
+  const [cat, setCat] = useState(null);
   const [productByCat, setProductByCat] = useState(null);
   const location = useLocation();
 
@@ -17,9 +17,10 @@ const Products = () => {
       // Fetch all categories
       let result = [];
       let categories = "";
-      const res = await apiCallBack("GET", "allCategory", null, null);
+      const res = await apiCallBack("GET", "user/category", null, null);
       if (res.status) {
         categories = res.data;
+        setCat(categories);
       }
       if (checkTypeArr(categories)) {
         await Promise.all(
@@ -91,26 +92,29 @@ const Products = () => {
                 <div className="p_category">
                   <h3>All Categories</h3>
                   <ul>
-                    {productByCat &&
-                      productByCat.map((item, i) => (
+                    {cat &&
+                      cat.map((item, i) => (
                         <li key={i}>
                           <div className="cat_choice_list">
-                            {console.log("product by category", productByCat)}
                             <Link to={`/products?cat_id=${item?.cat_id}`}>
-                              {item?.cat_name}
+                              {item?.name}
                             </Link>
                             <FiPlusCircle />
                           </div>
-                          <ul className="subdrop">
-                            {checkTypeArr(item?.products) &&
-                              item?.products.map((it, i) => (
-                                <li key={i}>
-                                  <Link to={`/product/${it?.product_id}`}>
-                                    {it?.name}
-                                  </Link>
-                                </li>
-                              ))}
-                          </ul>
+                          {checkTypeArr(item?.children) &&
+                            item.children.length > 0 && (
+                              <ul className="subdrop">
+                                {item.children.map((it, i) => (
+                                  <li key={i}>
+                                    <Link
+                                      to={`/products?cat_id=${item?.cat_id}`}
+                                    >
+                                      {it?.name}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                         </li>
                       ))}
                   </ul>
@@ -132,6 +136,7 @@ const Products = () => {
                         p_id={item?.product_id}
                         image={item?.image}
                         item={item}
+                        key={i}
                       />
                     ))}
                 </div>

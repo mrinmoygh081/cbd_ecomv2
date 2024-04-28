@@ -8,7 +8,7 @@ import {
   inputChangePrevent,
   inputOnWheelPrevent,
 } from "../../Helper/smallFun";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderAdmin from "../../components/HeaderAdmin";
 
 const NewProducts = () => {
@@ -105,7 +105,7 @@ const NewProducts = () => {
         <div className="container-fluid">
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <a href="#">Dashboard</a>
+              <Link to="/admin">Dashboard</Link>
             </li>
             <li className="breadcrumb-item active">Add Product</li>
           </ol>
@@ -278,10 +278,6 @@ const NewProducts = () => {
             </div>
           </div>
         </footer>
-
-        <a className="scroll-to-top rounded" href="#page-top">
-          <i className="fa fa-angle-up"></i>
-        </a>
       </div>
     </div>
   );
