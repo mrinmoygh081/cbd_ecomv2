@@ -49,3 +49,6 @@ export const reConfirm = (file, handleFun, warningText) => {
     });
   }
 };
+export const checkTypeArr = (data) => {
+  return data && Array.isArray(data);
+};

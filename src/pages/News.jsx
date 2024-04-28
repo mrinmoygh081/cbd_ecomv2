@@ -1,7 +1,7 @@
 import React from "react";
 import YtIfram from "../components/YtIfram";
-import { checkTypeArr } from "../utils/smailFun";
 import { vidData } from "../data/data";
+import { checkTypeArr } from "../Helper/smallFun";
 
 const News = () => {
   return (

@@ -30,7 +30,7 @@ export const getCategoriesName = async (catId, setCatName) => {
     let cat = "All";
     d?.data &&
       d?.data.map((item) => {
-        if (item?.cat_id == catId) {
+        if (item?.cat_id === catId) {
           cat = item?.name;
         }
       });

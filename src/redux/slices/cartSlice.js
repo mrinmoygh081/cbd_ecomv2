@@ -49,10 +49,18 @@ export const cartStage = createSlice({
       existingItem.price = parseInt(existingItem.price) * existingItem.qty;
     },
   },
+  cleanCartHandler: () => {
+    return [];
+  },
 });
 
 // Action creators are generated for each case reducer function
-export const { addCartHandler, removeCartHandler, increaseQty, decreaseQty } =
-  cartStage.actions;
+export const {
+  addCartHandler,
+  removeCartHandler,
+  increaseQty,
+  decreaseQty,
+  cleanCartHandler,
+} = cartStage.actions;
 
 export default cartStage.reducer;

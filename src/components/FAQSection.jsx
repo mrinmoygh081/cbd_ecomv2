@@ -10,8 +10,8 @@ const FAQSection = ({ faqData }) => {
     <>
       <section className="product_section">
         <div className="section_head">
-          <img src={require("../assets/imgs/124.png")} alt="" />
-          <h2>FAQs</h2>
+          <img src={require("../assets/imgs/124r.png")} alt="" />
+          <h2 style={{ marginTop: "15px" }}>FAQs</h2>
         </div>
         <div className="container">
           <div className="section_header">

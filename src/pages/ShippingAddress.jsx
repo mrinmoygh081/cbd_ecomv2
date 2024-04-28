@@ -10,8 +10,9 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { postAPI } from "../utils/fetchAPIs";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginHandler } from "../redux/slices/loginSlice";
+import { cleanCartHandler } from "../redux/slices/cartSlice";
 
 const ShippingAddress = () => {
   const dispatch = useDispatch();
@@ -31,24 +32,34 @@ const ShippingAddress = () => {
     phone: "",
     password: "",
   });
-  const [userToken, setUserToken] = useState(null);
+  const { token } = useSelector((state) => state.auth);
 
   const orderHandler = async () => {
     const { country, state, city, pincode } = form;
     if (!country || !state || !city || !pincode || !form?.location) {
       return toast.warn("Please check all required fields.");
     }
-    if (userToken) {
+    console.log(token);
+    if (token) {
       setIsPopup(false);
       let body = {
         address: form,
         products: location.state?.orderedProducts,
       };
-      console.log(body);
-      let d = await postAPI("user/codorder", body, userToken);
-      if (d.status) {
-        navigate("/");
-        toast.success("Your order has been placed!");
+      let d;
+      if (location.state?.paymentMode === "online") {
+        d = await postAPI("user/onlinePayment", body, token);
+      } else {
+        d = await postAPI("user/codorder", body, token);
+      }
+      if (d?.status) {
+        if (location.state?.paymentMode === "online") {
+          console.log("response", d);
+        } else {
+          navigate("/orders");
+          toast.success("Your order has been placed!");
+          dispatch(cleanCartHandler());
+        }
       } else {
         toast.warn("Something went wrong!");
       }
@@ -65,8 +76,6 @@ const ShippingAddress = () => {
     }
     let d = await postAPI("login/user", loginD, null);
     if (d.status) {
-      const { token } = d;
-      setUserToken(token);
       setIsPopup(false);
       dispatch(loginHandler(d));
     } else {

@@ -8,7 +8,6 @@ const Orders = () => {
   const [data, setData] = useState(null);
 
   const getOrderList = async () => {
-    console.log(token);
     const d = await apiCallBack("GET", "user/orders", null, token);
     if (d?.status) {
       setData(d?.data);
@@ -31,17 +30,17 @@ const Orders = () => {
               <div className="col-12" key={i}>
                 <div className="order_card">
                   <div className="row">
-                    <div className="col-md-3 col-12">
+                    {/* <div className="col-md-3 col-12">
                       <img
                         src={`${process.env.REACT_APP_BACKEND_URL}${item?.image}`}
                         alt={""}
                         className="product-card_img"
                       />
-                    </div>
-                    <div className="col-md-9 col-12">
+                    </div> */}
+                    <div className="col-12">
                       <div>
                         <Link to={`/order-details/${item?.orderId}`}>
-                          <h3>{item?.name}</h3>
+                          <h4>{item?.name}</h4>
                           <p>
                             Order Date:{" "}
                             {item?.createdAt &&

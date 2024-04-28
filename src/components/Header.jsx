@@ -7,8 +7,8 @@ import { RxCross2 } from "react-icons/rx";
 import { apiCallBack } from "../utils/fetchAPIs";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutHandler } from "../redux/slices/loginSlice";
-import { reConfirm } from "../Helper/smallFun";
-import { checkTypeArr } from "../utils/smailFun";
+import { checkTypeArr, inputChange, reConfirm } from "../Helper/smallFun";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,10 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [cat, setCat] = useState(null);
+  const [search, setSearch] = useState({
+    searchKey: "",
+    searchValue: "",
+  });
 
   const getCat = async () => {
     try {
@@ -43,9 +47,20 @@ const Header = () => {
     // });
   };
 
+  const searchHandler = async () => {
+    if (search?.searchKey === "") {
+      console.log("Search", search);
+      return toast.warn("Please enter a search key!");
+    }
+    const d = await apiCallBack("POST", "user/product", search, null);
+    setSearch({ ...search, searchValue: d?.data });
+  };
+
   useEffect(() => {
     getCat();
   }, []);
+
+  console.log(search);
 
   return (
     <>
@@ -228,18 +243,43 @@ const Header = () => {
             <RxCross2 onClick={() => setIsSearch(false)} />
           </button>
         </div>
-        <div className="search_box">
-          <input
-            type="text"
-            name="search"
-            id="search"
-            placeholder="Eg: CBG Cream..."
-            className="form-control"
-            autoComplete="off"
-          />
-          <button className="btn_style">
-            <FaSearch />
-          </button>
+        <div className="search_sug">
+          <div className="search_box">
+            <input
+              type="text"
+              name="searchKey"
+              id="search"
+              placeholder="Eg: CBD Cream..."
+              className="form-control"
+              autoComplete="off"
+              value={search?.searchKey}
+              onChange={(e) => inputChange(e, search, setSearch)}
+            />
+            <button className="btn_style" onClick={searchHandler}>
+              <FaSearch />
+            </button>
+          </div>
+          <div className="suggest">
+            <ul>
+              {checkTypeArr(search?.searchValue) &&
+                search.searchValue.map((item, i) => (
+                  <li key={i}>
+                    <Link
+                      to={`/product/${item?.product_id}`}
+                      onClick={() => {
+                        setIsSearch(false);
+                        setSearch({
+                          searchKey: "",
+                          searchValue: "",
+                        });
+                      }}
+                    >
+                      {item?.name}
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>

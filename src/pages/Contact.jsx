@@ -1,10 +1,10 @@
 import React from "react";
 import {
   FaFacebookF,
-  FaGooglePlusG,
   FaInstagram,
   FaPhone,
   FaX,
+  FaYoutube,
 } from "react-icons/fa6";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
@@ -81,24 +81,36 @@ const Contact = () => {
                     <MdMail /> info@morris.com
                   </li>
                 </ul>
-                <ul className="social_links">
+                <ul className="social-links">
                   <li className="google">
-                    <Link to="#" target="_blank">
-                      <FaGooglePlusG />
+                    <Link
+                      to="https://www.youtube.com/watch?v=-lCbuWubIf8"
+                      target="_blank"
+                    >
+                      <FaYoutube />
                     </Link>
                   </li>
-                  <li className="facebook" target="_blank">
-                    <Link to="#">
+                  <li className="facebook">
+                    <Link
+                      to="https://www.facebook.com/groups/918234122056988/"
+                      target="_blank"
+                    >
                       <FaFacebookF />
                     </Link>
                   </li>
-                  <li className="instagram" target="_blank">
-                    <Link to="#">
+                  <li className="instagram">
+                    <Link
+                      to="https://www.instagram.com/cbdcitystores/"
+                      target="_blank"
+                    >
                       <FaInstagram />
                     </Link>
                   </li>
-                  <li className="twitter" target="_blank">
-                    <Link to="#">
+                  <li className="twitter">
+                    <Link
+                      to="https://twitter.com/Cityofatlanta/"
+                      target="_blank"
+                    >
                       <FaX />
                     </Link>
                   </li>

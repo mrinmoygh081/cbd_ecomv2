@@ -24,6 +24,7 @@ import { AdminOrdersDetails } from "./pages/admin/AdminOrdersDetails";
 import OrderDetails from "./pages/OrderDetails";
 import News from "./pages/News";
 import Testimonials from "./pages/Testimonials";
+import { DeliveryCharge } from "./pages/admin/DeliveryCharge";
 
 const Layout = () => {
   const { token, role } = useSelector((state) => state.auth);
@@ -48,6 +49,11 @@ const Layout = () => {
                 element={<AdminOrdersDetails />}
               />
               <Route exact path="/admin/categories" element={<Category />} />
+              <Route
+                exact
+                path="/admin/delivery"
+                element={<DeliveryCharge />}
+              />
             </>
           ) : (
             <>

@@ -23,7 +23,8 @@ const ProductDetails = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
+
   return (
     <>
       <div className="container py-5">

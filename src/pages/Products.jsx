@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ProductBuyNow from "../components/ProductBuyNow";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiPlusCircle } from "react-icons/fi";
 import { apiCallBack } from "../utils/fetchAPIs";
-import { checkTypeArr } from "../utils/smailFun";
+import { checkTypeArr } from "../Helper/smallFun";
 
 const Products = () => {
   const [data, setData] = useState(null);

@@ -60,6 +60,12 @@ const HeaderAdmin = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/admin/delivery">
+                <i className="fa fa-fw fa-table"></i>
+                <span className="nav-link-text">Delivery</span>
+              </Link>
+            </li>
+            <li className="nav-item">
               <button className="nav-link" onClick={() => logOutFun()}>
                 <i className="fa fa-fw fa-table"></i>
                 <span className="nav-link-text">Logout</span>

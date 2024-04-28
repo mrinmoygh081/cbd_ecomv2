@@ -3,11 +3,10 @@ import Product from "../components/Product";
 import ProductBuyNow from "../components/ProductBuyNow";
 import { Link } from "react-router-dom";
 import { apiCallBack } from "../utils/fetchAPIs";
-import { checkTypeArr } from "../utils/smailFun";
 import FAQSection from "../components/FAQSection";
 import { faqData, vidData } from "../data/data";
 import YtIfram from "../components/YtIfram";
-import News from "./News";
+import { checkTypeArr } from "../Helper/smallFun";
 
 const Home = () => {
   const [cat, setCat] = useState(null);
@@ -191,6 +190,30 @@ const Home = () => {
               <Link to="/testimonials" className="btn_style text-center">
                 READ MORE
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="product_section">
+        <div className="section_head">
+          <img src={require("../assets/partner_banner.png")} alt="" />
+        </div>
+        <div className="container">
+          <div className="section_header">
+            <h2 className="my-5">Our Partners</h2>
+          </div>
+          <div className="row align-items-center justify-content-center">
+            <div className="col-md-3 col-6">
+              <img src={require("../assets/partners/img1.jpeg")} alt="" />
+            </div>
+            <div className="col-md-3 col-6">
+              <Link to="https://www.trycannago.com/" target="_blank">
+                <img src={require("../assets/partners/img3.jpeg")} alt="" />
+              </Link>
+            </div>
+            <div className="col-md-3 col-6">
+              <img src={require("../assets/partners/img2.jpeg")} alt="" />
             </div>
           </div>
         </div>

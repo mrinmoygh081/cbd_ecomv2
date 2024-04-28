@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 // imgs import
 import logo from "../assets/cbd.jpeg";
-import { FaFacebookF, FaGooglePlusG, FaInstagram, FaX } from "react-icons/fa6";
+import { FaFacebookF, FaInstagram, FaX, FaYoutube } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
@@ -109,22 +109,34 @@ export const Footer = () => {
                     </ul>
                     <ul className="social-links">
                       <li className="google">
-                        <Link to="#">
-                          <FaGooglePlusG />
+                        <Link
+                          to="https://www.youtube.com/watch?v=-lCbuWubIf8"
+                          target="_blank"
+                        >
+                          <FaYoutube />
                         </Link>
                       </li>
                       <li className="facebook">
-                        <Link to="#">
+                        <Link
+                          to="https://www.facebook.com/groups/918234122056988/"
+                          target="_blank"
+                        >
                           <FaFacebookF />
                         </Link>
                       </li>
                       <li className="instagram">
-                        <Link to="#">
+                        <Link
+                          to="https://www.instagram.com/cbdcitystores/"
+                          target="_blank"
+                        >
                           <FaInstagram />
                         </Link>
                       </li>
                       <li className="twitter">
-                        <Link to="#">
+                        <Link
+                          to="https://twitter.com/Cityofatlanta/"
+                          target="_blank"
+                        >
                           <FaX />
                         </Link>
                       </li>

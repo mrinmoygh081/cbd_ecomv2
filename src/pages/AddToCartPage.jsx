@@ -22,9 +22,9 @@ const AddToCartPage = () => {
     total: 0,
     delivery: 34,
   });
+  const [paymentMode, setPaymentMode] = useState("cod");
 
   useEffect(() => {
-    console.log("cartItems", cartItems);
     if (cartItems && cartItems.length > 0) {
       let subTotal = 0;
       let d = cartItems.map((item) => {
@@ -49,7 +49,7 @@ const AddToCartPage = () => {
 
   const cartHandler = () => {
     if (orderedProducts && orderedProducts.length > 0) {
-      navigate("/shipping", { state: { orderedProducts: orderedProducts } });
+      navigate("/shipping", { state: { orderedProducts, paymentMode } });
     } else {
       toast.warn("Please add atleast one product to your cart!");
     }
@@ -69,7 +69,6 @@ const AddToCartPage = () => {
               <div className="row">
                 <div className="col-md-8 col-12">
                   <div className="cart_card">
-                    {console.log(cartItems)}
                     {cartItems &&
                       cartItems.length > 0 &&
                       cartItems.map((item, i) => (
@@ -136,14 +135,14 @@ const AddToCartPage = () => {
                           <input
                             className="form-check-input"
                             type="radio"
-                            name="flexRadioDefault"
-                            id="flexRadioDefault1"
+                            name="paymentMode"
+                            id="cod"
                             defaultChecked
+                            value="cod"
+                            checked={paymentMode === "cod"}
+                            onChange={(e) => setPaymentMode(e.target.value)}
                           />
-                          <label
-                            className="form-check-label"
-                            htmlFor="flexRadioDefault1"
-                          >
+                          <label className="form-check-label" htmlFor="cod">
                             Cash On Delivery
                           </label>
                         </div>
@@ -151,13 +150,13 @@ const AddToCartPage = () => {
                           <input
                             className="form-check-input"
                             type="radio"
-                            name="flexRadioDefault"
-                            id="flexRadioDefault2"
+                            name="paymentMode"
+                            id="online"
+                            value="online"
+                            checked={paymentMode === "online"}
+                            onChange={(e) => setPaymentMode(e.target.value)}
                           />
-                          <label
-                            className="form-check-label"
-                            htmlFor="flexRadioDefault2"
-                          >
+                          <label className="form-check-label" htmlFor="online">
                             Online
                           </label>
                         </div>
