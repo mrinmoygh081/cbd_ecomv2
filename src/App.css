@@ -930,6 +930,9 @@ img {
   flex-direction: column;
   align-items: flex-start;
 }
+.cart_item_name {
+  font-size: 18px;
+}
 
 @media (max-width: 768px) {
   .cart_item {
@@ -984,16 +987,27 @@ img {
 .orders_list {
   box-shadow: 1px 4px 8px #969696;
   padding: 20px;
-  max-width: 400px;
+  /*  max-width: 400px; */
   margin: 10px auto;
 }
 .order_card {
   border: 1px solid #ccc;
-  padding: 10px;
   border-radius: 8px;
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
+}
+.order_card a {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  transition: all 0.25s ease-in-out;
+}
+.order_card a:hover {
+  background-color: #ececec;
+}
+.order_card h4 {
+  font-size: 18px;
 }
 .container-1 h1 {
   font-size: 32px;

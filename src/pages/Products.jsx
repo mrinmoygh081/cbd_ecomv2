@@ -15,7 +15,7 @@ const Products = () => {
   const getProductsByCat = async () => {
     try {
       // Fetch all categories
-      let result = [];
+      // let result = [];
       let categories = "";
       const res = await apiCallBack("GET", "user/category", null, null);
       if (res.status) {
@@ -58,18 +58,18 @@ const Products = () => {
   console.log("data", data);
 
   const getProdByCatList = async (catId) => {
-    let body;
+    let body = null;
     if (catId) {
       body = {
         catId: catId,
       };
-    } else {
-      body = null;
     }
     console.log("body", body);
     const res = await apiCallBack("POST", "user/product", body, null);
     console.log("Res", res);
     if (res?.status) {
+      setData(res?.data);
+    } else {
       setData(res?.data);
     }
   };
@@ -131,7 +131,7 @@ const Products = () => {
               </div>
               <div className="product-cards__slider">
                 <div className="row">
-                  {checkTypeArr(data) &&
+                  {checkTypeArr(data) ? (
                     data.map((item, i) => (
                       <ProductBuyNow
                         name={item?.name}
@@ -141,7 +141,12 @@ const Products = () => {
                         item={item}
                         key={i}
                       />
-                    ))}
+                    ))
+                  ) : (
+                    <>
+                      <h4>No Product Found under selected category</h4>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

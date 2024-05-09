@@ -27,29 +27,16 @@ const Orders = () => {
         <div className="row">
           {data &&
             data.map((item, i) => (
-              <div className="col-12" key={i}>
+              <div className="col-md-4 col-12" key={i}>
                 <div className="order_card">
-                  <div className="row">
-                    {/* <div className="col-md-3 col-12">
-                      <img
-                        src={`${process.env.REACT_APP_BACKEND_URL}${item?.image}`}
-                        alt={""}
-                        className="product-card_img"
-                      />
-                    </div> */}
-                    <div className="col-12">
-                      <div>
-                        <Link to={`/order-details/${item?.orderId}`}>
-                          <h4>{item?.name}</h4>
-                          <p>
-                            Order Date:{" "}
-                            {item?.createdAt &&
-                              new Date(item?.createdAt).toLocaleDateString()}
-                          </p>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
+                  <Link to={`/order-details/${item?.orderId}`}>
+                    <h4>{item?.name}</h4>
+                    <p>
+                      Order Date:{" "}
+                      {item?.createdAt &&
+                        new Date(item?.createdAt).toLocaleDateString()}
+                    </p>
+                  </Link>
                 </div>
               </div>
             ))}

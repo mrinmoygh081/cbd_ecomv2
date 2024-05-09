@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { token, name } = useSelector((state) => state.auth);
   const [isActive, setIsActive] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
@@ -24,8 +25,6 @@ const Header = () => {
 
   const getCat = async () => {
     try {
-      // Fetch all categories
-      // let result = [];
       let categories = "";
       const res = await apiCallBack("GET", "user/category", null, null);
       if (res.status) {
@@ -46,6 +45,12 @@ const Header = () => {
     //   return Persistor.purge();
     // });
   };
+
+  useEffect(() => {
+    console.log("fjlkdf");
+    setIsActive(false);
+    setIsSearch(false);
+  }, [pathname]);
 
   const searchHandler = async () => {
     if (search?.searchKey === "") {
@@ -232,6 +237,9 @@ const Header = () => {
           </li>
           <li>
             <Link to={"/orders"}>YOUR ORDERS</Link>
+          </li>
+          <li>
+            <Link to={"/cart"}>CART</Link>
           </li>
         </ul>
       </div>

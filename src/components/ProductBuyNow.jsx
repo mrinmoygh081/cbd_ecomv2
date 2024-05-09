@@ -1,11 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaCartShopping, FaRegHeart } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { addCartHandler } from "../redux/slices/cartSlice";
+import { addWishListHandler } from "../redux/slices/wishlistSlice";
 
 const ProductBuyNow = ({ p_id, name, price, image, item }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
   return (
     <>
       <div className="col-12 col-md-4">
@@ -42,9 +45,14 @@ const ProductBuyNow = ({ p_id, name, price, image, item }) => {
               <FaCartShopping />
               Add to cart
             </button>
-            <button className="wishlist__btn">
-              <FaRegHeart />
-            </button>
+            {pathname !== "/wishlist" && (
+              <button
+                className="wishlist__btn"
+                onClick={() => dispatch(addWishListHandler(item))}
+              >
+                <FaRegHeart />
+              </button>
+            )}
           </div>
         </article>
         {/* </Link> */}

@@ -37,7 +37,7 @@ const AddToCartPage = () => {
       });
       let total = 0;
       let delivery = 34;
-      total = parseFloat(subTotal) + delivery;
+      total = parseFloat(subTotal).toFixed(2) + delivery;
       // if (subTotal || subTotal === 0) {
       // } else {
       //   total = "";
@@ -127,7 +127,10 @@ const AddToCartPage = () => {
                         Delivery Charge: <b>${price?.delivery}</b>
                       </p>
                       <p>
-                        Total amount to be paid: <b>${price?.total}</b>
+                        Total amount to be paid:{" "}
+                        <b>
+                          ${price?.total && parseFloat(price?.total).toFixed(2)}
+                        </b>
                       </p>
                       <div className="payment_mode py-3">
                         <h4>Payment Mode:</h4>
