@@ -100,11 +100,11 @@ const Header = () => {
               <div className="col-md-4"></div>
               <div className="col-md-4">
                 <ul className="topbar_right">
+                  <li>
+                    <Link to={"/wishlist"}>WISHLIST</Link>
+                  </li>
                   {token && (
                     <>
-                      <li>
-                        <Link to={"/wishlist"}>WISHLIST</Link>
-                      </li>
                       <li>
                         <Link to={"/orders"}>ORDERS</Link>
                       </li>
