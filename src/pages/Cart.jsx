@@ -9,6 +9,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdDeleteOutline } from "react-icons/md";
+import { apiCallBack } from "../utils/fetchAPIs";
+import { checkTypeArr } from "../Helper/smallFun";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -18,25 +20,42 @@ const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart2);
   const [orderedProducts, setOrderedProducts] = useState([]);
   const [price, setPrice] = useState({
-    subTotal: 0,
-    total: 0,
-    delivery: 34,
+    subTotal: "",
+    total: "",
+    delivery: "",
   });
   const [paymentMode, setPaymentMode] = useState("cod");
 
-  useEffect(() => {
-    if (cartItems && cartItems.length > 0) {
-      let subTotal = 0;
-      let d = cartItems.map((item) => {
-        subTotal += parseFloat(item?.price);
-        return { id: item.product_id, quantity: item.qty };
-      });
-      let total = 0;
-      let delivery = 34;
-      total = parseFloat(subTotal).toFixed(2) + delivery;
-      setOrderedProducts(d);
-      setPrice({ ...price, subTotal, total });
+  const getDeliveryFee = async () => {
+    const d = await apiCallBack("GET", "user/delivery", null, null);
+    if (d?.status) {
+      return d?.data;
     }
+    return null;
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (cartItems && cartItems.length > 0) {
+        let subTotal = 0;
+        let d = cartItems.map((item) => {
+          subTotal += parseFloat(item?.price);
+          return { id: item.product_id, quantity: item.qty };
+        });
+        let total = 0;
+
+        let delivery = 0;
+        const data = await getDeliveryFee();
+        console.log(data);
+        if (checkTypeArr(data)) {
+          delivery = data[0].amount;
+        }
+        total = (parseFloat(subTotal) + delivery).toFixed(2);
+        console.log("Total", total);
+        setOrderedProducts(d);
+        setPrice({ ...price, subTotal, total, delivery });
+      }
+    })();
   }, [cartItems]);
 
   const cartHandler = () => {
