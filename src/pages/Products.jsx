@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FiPlusCircle } from "react-icons/fi";
 import { apiCallBack } from "../utils/fetchAPIs";
 import { checkTypeArr } from "../Helper/smallFun";
+import LoadingView from "../components/LoadingView";
 
 const Products = () => {
   const [data, setData] = useState(null);
@@ -11,6 +12,7 @@ const Products = () => {
   const [cat, setCat] = useState(null);
   const [productByCat, setProductByCat] = useState(null);
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(null);
 
   const getProductsByCat = async () => {
     try {
@@ -54,23 +56,16 @@ const Products = () => {
     setCatId(catIdParam);
   }, [location.search]);
 
-  // console.log("productByCat", productByCat);
-  console.log("data", data);
-
   const getProdByCatList = async (catId) => {
     let body = null;
     if (catId) {
+      setIsLoading(true);
       body = {
         catId: catId,
       };
-    }
-    console.log("body", body);
-    const res = await apiCallBack("POST", "user/product", body, null);
-    console.log("Res", res);
-    if (res?.status) {
+      const res = await apiCallBack("POST", "user/product", body, null);
       setData(res?.data);
-    } else {
-      setData(res?.data);
+      setIsLoading(false);
     }
   };
 
@@ -78,8 +73,6 @@ const Products = () => {
     getProductsByCat();
     getProdByCatList(catId);
   }, [catId]);
-
-  console.log("catId", catId);
 
   return (
     <>
@@ -102,16 +95,15 @@ const Products = () => {
                             <Link to={`/products?cat_id=${item?.cat_id}`}>
                               {item?.name}
                             </Link>
-                            <FiPlusCircle />
+                            {checkTypeArr(item?.children) &&
+                              item.children.length > 0 && <FiPlusCircle />}
                           </div>
                           {checkTypeArr(item?.children) &&
                             item.children.length > 0 && (
                               <ul className="subdrop">
                                 {item.children.map((it, i) => (
                                   <li key={i}>
-                                    <Link
-                                      to={`/products?cat_id=${item?.cat_id}`}
-                                    >
+                                    <Link to={`/products?cat_id=${it?.cat_id}`}>
                                       {it?.name}
                                     </Link>
                                   </li>
@@ -129,26 +121,34 @@ const Products = () => {
                 <h2>This Week's Special Offers</h2>
                 <p>These CBD offer BIG Discounts on some Amazing products.</p>
               </div>
-              <div className="product-cards__slider">
-                <div className="row">
-                  {checkTypeArr(data) ? (
-                    data.map((item, i) => (
-                      <ProductBuyNow
-                        name={item?.name}
-                        price={item?.price}
-                        p_id={item?.product_id}
-                        image={item?.image}
-                        item={item}
-                        key={i}
-                      />
-                    ))
-                  ) : (
-                    <>
-                      <h4>No Product Found under selected category</h4>
-                    </>
-                  )}
-                </div>
-              </div>
+              {!isLoading ? (
+                <>
+                  <div className="product-cards__slider">
+                    <div className="row">
+                      {checkTypeArr(data) ? (
+                        data.map((item, i) => (
+                          <ProductBuyNow
+                            name={item?.name}
+                            price={item?.price}
+                            p_id={item?.product_id}
+                            image={item?.image}
+                            item={item}
+                            key={i}
+                          />
+                        ))
+                      ) : (
+                        <>
+                          <h4>No Product Found under selected category</h4>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <LoadingView />
+                </>
+              )}
             </div>
           </div>
         </div>

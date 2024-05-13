@@ -27,8 +27,6 @@ const UserLogin = () => {
     }
     const data = await postAPI("login/user", form, null);
     if (data.status) {
-      console.log(data);
-      toast.success("You have successfully logged in!");
       dispatch(loginHandler(data));
       navigate("/");
     } else {

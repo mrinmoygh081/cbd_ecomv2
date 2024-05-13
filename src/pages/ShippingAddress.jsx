@@ -169,7 +169,7 @@ const ShippingAddress = () => {
                                 value={form?.pincode}
                                 onChange={(e) => inputChange(e, form, setForm)}
                               />
-                              <label htmlFor="pincode">Pincode</label>
+                              <label htmlFor="pincode">Zip Code</label>
                             </div>
                           </div>
                           <div className="col-md-4 col-12">

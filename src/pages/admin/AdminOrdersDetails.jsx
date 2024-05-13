@@ -5,7 +5,7 @@ import { apiCallBack } from "../../utils/fetchAPIs";
 import { logoutHandler } from "../../redux/slices/loginSlice";
 import HeaderAdmin from "../../components/HeaderAdmin";
 import { FaSearch } from "react-icons/fa";
-import { formatDate } from "../../utils/dateTimeFormat";
+import { formatDate, formatDateTime } from "../../utils/dateTimeFormat";
 
 export const AdminOrdersDetails = () => {
   const { id } = useParams();
@@ -21,6 +21,7 @@ export const AdminOrdersDetails = () => {
       skip: 0,
     };
     const d = await apiCallBack("GET", `admin/orders/${id}`, body, token);
+    console.log("d", d);
     if (d === "logout") {
       window.location.replace("/admin");
       dispatch(logoutHandler());
@@ -33,16 +34,6 @@ export const AdminOrdersDetails = () => {
   useEffect(() => {
     getOrders();
   }, [token]);
-
-  //   const deleteProductHandler = async (id) => {
-  //     const d = await deleteAPI(`admin/product/${id}`, token);
-  //     if (d?.status) {
-  //       toast.success("The Order deleted successfully");
-  //       getOrders();
-  //     } else {
-  //       toast.warn(d?.msg);
-  //     }
-  //   };
 
   return (
     <div className="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -57,103 +48,122 @@ export const AdminOrdersDetails = () => {
           </ol>
 
           <div className="card mb-3 overflow">
-            <div className="card-header">
-              {/* <Link to={"/admin/products/add"} className="btn btn-primary">
-                Add New &nbsp; <i className="fa fa-plus" aria-hidden="true"></i>
-              </Link> */}
-              <form className="form-inline my-2 my-lg-0 mr-lg-2">
-                <div className="input-group">
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="Search for..."
-                  />
-                  <span className="input-group-append">
-                    <button className="btn btn-primary" type="button">
-                      <FaSearch />
-                    </button>
-                  </span>
-                </div>
-              </form>
-            </div>
+            <div className="card-header"></div>
             <div className="card-body">
-              <div className="table-responsive">
-                <table
-                  className="table table-bordered"
-                  id="dataTable"
-                  width="100%"
-                  cellSpacing="0"
-                >
-                  <thead className="text-center">
-                    <tr>
-                      <th>ORDER ID</th>
-                      <th>Price</th>
-                      <th>Delivery Price</th>
-                      <th>Total Price</th>
-                      <th>Date</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>ORDER ID</th>
-                      <th>Price</th>
-                      <th>Brand</th>
-                      <th>Quantity</th>
-                      <th>Date</th>
-                      <th>Action</th>
-                    </tr>
-                  </tfoot>
-                  <tbody className="text-center">
-                    {data &&
-                      data.map((item, i) => (
-                        <Fragment key={i}>
-                          <tr>
-                            <td>{item?.orderId}</td>
-                            <td>{item?.price}</td>
-                            <td>{item?.delivery}</td>
-                            <td>{item?.totalPrice}</td>
-                            <td>
-                              {item?.createdAt && formatDate(item?.createdAt)}
-                            </td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-success me-2"
-                              >
-                                View
-                              </button>
-                              {/* <button
-                                type="button"
-                                className="btn btn-success me-2"
-                              >
-                                <i className="fa fa-pencil"></i>
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-success me-2"
-                              >
-                                <i className="fa fa-pencil"></i>
-                              </button> */}
-                              {/* <button
-                                type="button"
-                                className="btn btn-danger"
-                                onClick={() =>
-                                  reConfirm(
-                                    item?.product_id,
-                                    deleteProductHandler,
-                                    `You're deleting ${item?.name} permanently.`
-                                  )
-                                }
-                              >
-                                <FaTrash />
-                              </button> */}
-                            </td>
-                          </tr>
-                        </Fragment>
-                      ))}
-                  </tbody>
-                </table>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-6 col-12">
+                    <div className="admin_order_card">
+                      <h3>Order Info</h3>
+                      <div className="table-responsive">
+                        <table className="table table-bordered table-striped">
+                          <tbody>
+                            <tr>
+                              <th>ORDER ID</th>
+                              <td>{data?.orderInfo?.orderId}</td>
+                            </tr>
+                            <tr>
+                              <th>Price</th>
+                              <td>${data?.orderInfo?.price}</td>
+                            </tr>
+                            <tr>
+                              <th>Delivery Charge</th>
+                              <td>${data?.orderInfo?.delivery}</td>
+                            </tr>
+                            <tr>
+                              <th>Total Price</th>
+                              <td>${data?.orderInfo?.totalPrice}</td>
+                            </tr>
+                            <tr>
+                              <th>Purchase Date and Time</th>
+                              <td>
+                                {data?.orderInfo?.createdAt &&
+                                  formatDateTime(data?.orderInfo?.createdAt)}
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>Mode Of Payment</th>
+                              <td>
+                                {data?.orderInfo?.paymentMode === "COD"
+                                  ? "CASH ON DELIVERY"
+                                  : data?.orderInfo?.paymentMode}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-12">
+                    <div className="admin_order_card">
+                      <h3>Shipping Address</h3>
+                      <div className="table-responsive">
+                        <table className="table table-bordered table-striped">
+                          <tbody>
+                            <tr>
+                              <th>Street Address</th>
+                              <td>{data?.address?.location}</td>
+                            </tr>
+                            <tr>
+                              <th>Landmark</th>
+                              <td>{data?.address?.landmark}</td>
+                            </tr>
+                            <tr>
+                              <th>City</th>
+                              <td>{data?.address?.city}</td>
+                            </tr>
+                            <tr>
+                              <th>State</th>
+                              <td>{data?.address?.state}</td>
+                            </tr>
+                            <tr>
+                              <th>Zip Code</th>
+                              <td>{data?.address?.pincode}</td>
+                            </tr>
+                            <tr>
+                              <th>Country</th>
+                              <td>{data?.address?.country}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-12">
+                    <div className="admin_order_card">
+                      <h3>Purchased Products List</h3>
+                      <div className="row">
+                        {data?.products &&
+                          data?.products.map((item, i) => (
+                            <div className="col-md-6 col-12">
+                              <div className="table-responsive">
+                                <table className="table table-bordered table-striped">
+                                  <tbody>
+                                    <tr>
+                                      <th>Product Name</th>
+                                      <td>{item?.name}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Price</th>
+                                      <td>${item?.price}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Quantity</th>
+                                      <td>{item?.quantity}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Total Price</th>
+                                      <td>${item?.totaPrice}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="card-footer small text-muted"></div>
@@ -163,7 +173,7 @@ export const AdminOrdersDetails = () => {
         <footer className="sticky-footer">
           <div className="container">
             <div className="text-center">
-              <small>Copyright © Digipro Design</small>
+              <small>Copyright © </small>
             </div>
           </div>
         </footer>

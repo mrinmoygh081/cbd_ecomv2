@@ -1,32 +1,60 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { checkTypeArr } from "../../Helper/smallFun";
 import { toast } from "react-toastify";
 
-// const initialState = {
-//   data: [],
-// };
+const initialState = {
+  cartItems: [],
+  numOfItems: 0,
+};
 
 export const cartStage = createSlice({
   name: "cartStage",
-  initialState: [],
+  initialState,
   reducers: {
     addCartHandler: (state, action) => {
-      const { image, product_id, price, name, quantity, qty } = action.payload;
-      const existingItem = state.find((item) => item.product_id === product_id);
-      console.log(action.payload);
+      const {
+        image,
+        product_id,
+        price,
+        name,
+        quantity,
+        qty = 1,
+      } = action.payload;
+      const existingItem = state.cartItems.find(
+        (item) => item.product_id === product_id
+      );
       if (existingItem) {
-        existingItem.qty = parseInt(existingItem.qty) + parseInt(qty);
+        existingItem.qty += parseInt(qty);
       } else {
-        state.push({ image, product_id, price, name, quantity, qty: 1 });
+        state.cartItems.push({
+          image,
+          product_id,
+          price,
+          name,
+          quantity,
+          qty: 1,
+        });
       }
-      toast.success("The product has been added successfully!");
+      state.numOfItems = state.cartItems.reduce(
+        (total, item) => total + item.qty,
+        0
+      );
     },
     removeCartHandler: (state, action) => {
       const itemId = action.payload;
-      return state.filter((item) => item.product_id !== itemId);
+      state.cartItems = state.cartItems.filter(
+        (item) => item.product_id !== itemId
+      );
+      state.numOfItems = state.cartItems.reduce(
+        (total, item) => total + item.qty,
+        0
+      );
     },
     increaseQty: (state, action) => {
       const { product_id } = action.payload;
-      const existingItem = state.find((item) => item.product_id === product_id);
+      const existingItem = state.cartItems.find(
+        (item) => item.product_id === product_id
+      );
 
       if (existingItem) {
         existingItem.qty = parseInt(existingItem.qty) + 1;
@@ -36,19 +64,30 @@ export const cartStage = createSlice({
       existingItem.price =
         parseInt(existingItem.price) * parseInt(existingItem.qty);
 
-      console.log("existingItem2: " + JSON.stringify(existingItem));
+      state.numOfItems = state.cartItems.reduce(
+        (total, item) => total + item.qty,
+        0
+      );
     },
     decreaseQty: (state, action) => {
       const { product_id } = action.payload;
-      const existingItem = state.find((item) => item.product_id === product_id);
+      const existingItem = state.cartItems.find(
+        (item) => item.product_id === product_id
+      );
 
       if (existingItem && existingItem.qty > 1) {
-        existingItem.qty = existingItem.qty - 1;
+        existingItem.qty -= 1;
       }
       existingItem.price = parseInt(existingItem.price) * existingItem.qty;
+
+      state.numOfItems = state.cartItems.reduce(
+        (total, item) => total + item.qty,
+        0
+      );
     },
     cleanCartHandler: (state) => {
-      return [];
+      state.cartItems = [];
+      state.numOfItems = 0;
     },
   },
 });

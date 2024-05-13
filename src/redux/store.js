@@ -16,7 +16,7 @@ import {
 
 const reducers = combineReducers({
   auth: loginReducer,
-  cart: cartReducer,
+  cart2: cartReducer,
   wishlist: wishlistReducer,
 });
 

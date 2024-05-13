@@ -10,7 +10,6 @@ import FAQs from "./pages/FAQs";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Coffee from "./pages/Coffee";
-import AddToCartPage from "./pages/AddToCartPage";
 import { useSelector } from "react-redux";
 import Login from "./pages/admin/Login";
 import NewProducts from "./pages/admin/NewProducts";
@@ -25,6 +24,9 @@ import OrderDetails from "./pages/OrderDetails";
 import News from "./pages/News";
 import Testimonials from "./pages/Testimonials";
 import { DeliveryCharge } from "./pages/admin/DeliveryCharge";
+import Cart from "./pages/Cart";
+import UserSignup from "./pages/UserSignup";
+import ScrollToTopOnPageChange from "./components/ScrollToTopOnPageChange";
 
 const Layout = () => {
   const { token, role } = useSelector((state) => state.auth);
@@ -32,6 +34,7 @@ const Layout = () => {
     <>
       <BrowserRouter>
         {(!token || role !== "admin") && <Header />}
+        <ScrollToTopOnPageChange />
         <Routes>
           {token && role === "admin" ? (
             <>
@@ -60,6 +63,7 @@ const Layout = () => {
               <Route exact path="/" element={<Home />} />
               <Route exact path="/admin" element={<Login />} />
               <Route exact path="/login" element={<UserLogin />} />
+              <Route exact path="/signup" element={<UserSignup />} />
               <Route exact path="/products" element={<Products />} />
               <Route exact path="/product/:id" element={<ProductDetails />} />
               <Route exact path="/wishlist" element={<Wishlists />} />
@@ -74,7 +78,7 @@ const Layout = () => {
               <Route exact path="/faqs" element={<FAQs />} />
               <Route exact path="/contact" element={<Contact />} />
               <Route exact path="/about" element={<About />} />
-              <Route exact path="/cart" element={<AddToCartPage />} />
+              <Route exact path="/cart" element={<Cart />} />
               <Route exact path="/coffee" element={<Coffee />} />
               <Route exact path="/shipping" element={<ShippingAddress />} />
             </>

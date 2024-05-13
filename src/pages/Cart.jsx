@@ -10,12 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdDeleteOutline } from "react-icons/md";
 
-const AddToCartPage = () => {
+const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let backUrl = process.env.REACT_APP_BACKEND_URL;
   // const [isLoading, setIsLoading] = useState(false);
-  const cartItems = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart2);
   const [orderedProducts, setOrderedProducts] = useState([]);
   const [price, setPrice] = useState({
     subTotal: 0,
@@ -29,19 +29,11 @@ const AddToCartPage = () => {
       let subTotal = 0;
       let d = cartItems.map((item) => {
         subTotal += parseFloat(item?.price);
-        // if (typeof item?.price === "number") {
-        // } else {
-        //   subTotal = "";
-        // }
         return { id: item.product_id, quantity: item.qty };
       });
       let total = 0;
       let delivery = 34;
       total = parseFloat(subTotal).toFixed(2) + delivery;
-      // if (subTotal || subTotal === 0) {
-      // } else {
-      //   total = "";
-      // }
       setOrderedProducts(d);
       setPrice({ ...price, subTotal, total });
     }
@@ -69,8 +61,7 @@ const AddToCartPage = () => {
               <div className="row">
                 <div className="col-md-8 col-12">
                   <div className="cart_card">
-                    {cartItems &&
-                      cartItems.length > 0 &&
+                    {cartItems && cartItems.length > 0 ? (
                       cartItems.map((item, i) => (
                         <div className="cart_item" key={i}>
                           <img
@@ -113,7 +104,10 @@ const AddToCartPage = () => {
                           </div>
                           <div className="cart_price"> ${item.price}</div>
                         </div>
-                      ))}
+                      ))
+                    ) : (
+                      <p>No items added to cart</p>
+                    )}
                   </div>
                 </div>
                 <div className="col-md-4 col-12">
@@ -121,10 +115,20 @@ const AddToCartPage = () => {
                     <div className="cart_item">
                       <h3>Summary</h3>
                       <p>
-                        Subtotal: <b>${price?.subTotal}</b>
+                        Subtotal:{" "}
+                        <b>
+                          $
+                          {price?.subTotal &&
+                            parseFloat(price?.subTotal).toFixed(2)}
+                        </b>
                       </p>
                       <p>
-                        Delivery Charge: <b>${price?.delivery}</b>
+                        Delivery Charge:{" "}
+                        <b>
+                          $
+                          {price?.delivery &&
+                            parseFloat(price?.delivery).toFixed(2)}
+                        </b>
                       </p>
                       <p>
                         Total amount to be paid:{" "}
@@ -140,7 +144,6 @@ const AddToCartPage = () => {
                             type="radio"
                             name="paymentMode"
                             id="cod"
-                            defaultChecked
                             value="cod"
                             checked={paymentMode === "cod"}
                             onChange={(e) => setPaymentMode(e.target.value)}
@@ -183,4 +186,4 @@ const AddToCartPage = () => {
   );
 };
 
-export default AddToCartPage;
+export default Cart;

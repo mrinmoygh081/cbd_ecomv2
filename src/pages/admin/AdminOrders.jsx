@@ -10,7 +10,8 @@ import { formatDate } from "../../utils/dateTimeFormat";
 export const AdminOrders = () => {
   const { token } = useSelector((state) => state.auth);
   const [data, setData] = useState(null);
-  // let backUrl = process.env.REACT_APP_BACKEND_URL;
+  const [filterData, setFilterData] = useState(null);
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
   const getOrders = async () => {
@@ -32,15 +33,18 @@ export const AdminOrders = () => {
     getOrders();
   }, [token]);
 
-  //   const deleteProductHandler = async (id) => {
-  //     const d = await deleteAPI(`admin/product/${id}`, token);
-  //     if (d?.status) {
-  //       toast.success("The Order deleted successfully");
-  //       getOrders();
-  //     } else {
-  //       toast.warn(d?.msg);
-  //     }
-  //   };
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      const filteredTableData = data.filter((item) => {
+        return (
+          item?.orderId &&
+          item?.orderId.toString().toLowerCase().includes(search.toLowerCase())
+        );
+      });
+      setFilterData(filteredTableData);
+    }
+  }, [search, data]);
 
   return (
     <div className="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -56,15 +60,14 @@ export const AdminOrders = () => {
 
           <div className="card mb-3 overflow">
             <div className="card-header">
-              {/* <Link to={"/admin/products/add"} className="btn btn-primary">
-                Add New &nbsp; <i className="fa fa-plus" aria-hidden="true"></i>
-              </Link> */}
               <form className="form-inline my-2 my-lg-0 mr-lg-2">
                 <div className="input-group">
                   <input
                     className="form-control"
                     type="text"
-                    placeholder="Search for..."
+                    placeholder="Search by ORDER ID"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                   <span className="input-group-append">
                     <button className="btn btn-primary" type="button">
@@ -103,14 +106,20 @@ export const AdminOrders = () => {
                     </tr>
                   </tfoot>
                   <tbody className="text-center">
-                    {data &&
-                      data.map((item, i) => (
+                    {filterData &&
+                      filterData.map((item, i) => (
                         <Fragment key={i}>
                           <tr>
                             <td>{item?.orderId}</td>
-                            <td>{item?.price}</td>
+                            <td>
+                              {item?.price &&
+                                parseFloat(item?.price).toFixed(2)}
+                            </td>
                             <td>{item?.delivery}</td>
-                            <td>{item?.totalPrice}</td>
+                            <td>
+                              {item?.totalPrice &&
+                                parseFloat(item?.totalPrice).toFixed(2)}
+                            </td>
                             <td>
                               {item?.createdAt && formatDate(item?.createdAt)}
                             </td>
@@ -122,31 +131,6 @@ export const AdminOrders = () => {
                               >
                                 View
                               </Link>
-                              {/* <button
-                                type="button"
-                                className="btn btn-success me-2"
-                              >
-                                <i className="fa fa-pencil"></i>
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-success me-2"
-                              >
-                                <i className="fa fa-pencil"></i>
-                              </button> */}
-                              {/* <button
-                                type="button"
-                                className="btn btn-danger"
-                                onClick={() =>
-                                  reConfirm(
-                                    item?.product_id,
-                                    deleteProductHandler,
-                                    `You're deleting ${item?.name} permanently.`
-                                  )
-                                }
-                              >
-                                <FaTrash />
-                              </button> */}
                             </td>
                           </tr>
                         </Fragment>

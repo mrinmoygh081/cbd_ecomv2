@@ -14,3 +14,22 @@ export const formatDate = (epochTime) => {
 
   return day + "/" + month + "/" + year;
 };
+
+export function formatDateTime(dateTimeString) {
+  const date = new Date(dateTimeString);
+
+  // Format date
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-based
+  const year = date.getFullYear();
+
+  // Format time
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  // Construct formatted date and time string
+  const formattedDate = `${day}/${month}/${year}`;
+  const formattedTime = `${hours}:${minutes}`;
+
+  return `${formattedDate} ${formattedTime}`;
+}

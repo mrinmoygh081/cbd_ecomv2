@@ -11,7 +11,6 @@ export const loginStage = createSlice({
   initialState,
   reducers: {
     loginHandler: (state, action) => {
-      console.log(action.payload);
       state.token = action.payload.token;
       state.name = action.payload?.data?.name;
       state.role = action.payload?.data?.role;

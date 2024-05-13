@@ -15,6 +15,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { token, name } = useSelector((state) => state.auth);
+  const { numOfItems } = useSelector((state) => state.cart2);
   const [isActive, setIsActive] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [cat, setCat] = useState(null);
@@ -47,7 +48,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    console.log("fjlkdf");
     setIsActive(false);
     setIsSearch(false);
   }, [pathname]);
@@ -64,8 +64,6 @@ const Header = () => {
   useEffect(() => {
     getCat();
   }, []);
-
-  console.log(search);
 
   return (
     <>
@@ -112,9 +110,9 @@ const Header = () => {
                       </li>
                     </>
                   )}
-                  <li>
-                    {token ? (
-                      <>
+                  {token ? (
+                    <>
+                      <li>
                         <div className="d-flex justify-content-center">
                           <span className="name">{name && name}</span>
                           <button
@@ -130,11 +128,18 @@ const Header = () => {
                             Logout?
                           </button>
                         </div>
-                      </>
-                    ) : (
-                      <Link to={"/login"}>LOGIN</Link>
-                    )}
-                  </li>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <Link to={"/signup"}>SIGNUP</Link>
+                      </li>
+                      <li>
+                        <Link to={"/login"}>LOGIN</Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
@@ -187,8 +192,9 @@ const Header = () => {
                       <FaSearch onClick={() => setIsSearch(true)} />
                     </li>
                     <li>
-                      <Link to={"/cart"}>
+                      <Link to={"/cart"} className="relative">
                         <FaCartShopping />
+                        <span className="sup">{numOfItems}</span>
                       </Link>
                     </li>
                   </ul>
