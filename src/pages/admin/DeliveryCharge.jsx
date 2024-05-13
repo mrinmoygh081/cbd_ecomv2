@@ -49,7 +49,6 @@ export const DeliveryCharge = () => {
         editForm,
         token
       );
-      console.log(editForm);
       if (data?.status) {
         toast.success("Delivery amount is updated succesfully");
         await getCategories();

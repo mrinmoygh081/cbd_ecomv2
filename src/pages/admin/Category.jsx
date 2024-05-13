@@ -68,12 +68,10 @@ export const Category = () => {
       if (!images || !name) {
         return toast.warn("All fields are required.");
       }
-      console.log(name, images);
       const fdToSend = new FormData();
       fdToSend.append("name", name);
       fdToSend.append("images", images);
       fdToSend.append("parentId", "0");
-      console.log(fdToSend);
 
       // const data = await postAPI("admin/category", fdToSend, token);
       const data = await apiCallBack("POST", "admin/category", fdToSend, token);

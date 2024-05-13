@@ -53,7 +53,6 @@ const Home = () => {
             </p>
           </div>
           <div className="row">
-            {console.log(cat)}
             {cat &&
               cat.map(
                 (item, i) =>

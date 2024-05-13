@@ -54,7 +54,6 @@ const Header = () => {
 
   const searchHandler = async () => {
     if (search?.searchKey === "") {
-      console.log("Search", search);
       return toast.warn("Please enter a search key!");
     }
     const d = await apiCallBack("POST", "user/product", search, null);

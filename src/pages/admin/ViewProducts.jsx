@@ -53,18 +53,6 @@ const NewProducts = () => {
       type === "" ||
       images === null
     ) {
-      console.log(
-        name,
-        price,
-        description,
-        cat_id,
-        brand,
-        rating,
-        quantity,
-        guideline,
-        type,
-        images
-      );
       toast.warn("Please enter all required fields!");
       return;
     }

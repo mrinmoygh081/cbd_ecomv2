@@ -20,7 +20,6 @@ const UserSignup = () => {
     password: "",
     repassword: "",
   });
-  console.log(form);
 
   const loginFun = async (e) => {
     e.preventDefault();

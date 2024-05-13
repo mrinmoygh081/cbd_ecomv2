@@ -19,7 +19,6 @@ const ProductDetails = () => {
       setData(d?.data[0]);
     }
   };
-  console.log(data);
 
   useEffect(() => {
     getData();

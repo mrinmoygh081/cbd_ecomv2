@@ -1,19 +1,16 @@
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { apiCallBack } from "../../utils/fetchAPIs";
 import { logoutHandler } from "../../redux/slices/loginSlice";
 import HeaderAdmin from "../../components/HeaderAdmin";
-import { FaSearch } from "react-icons/fa";
-import { formatDate, formatDateTime } from "../../utils/dateTimeFormat";
+import { formatDateTime } from "../../utils/dateTimeFormat";
 
 export const AdminOrdersDetails = () => {
   const { id } = useParams();
   const { token } = useSelector((state) => state.auth);
   const [data, setData] = useState(null);
-  let backUrl = process.env.REACT_APP_BACKEND_URL;
   const dispatch = useDispatch();
-  console.log("id", id);
 
   const getOrders = async () => {
     let body = {
@@ -21,7 +18,6 @@ export const AdminOrdersDetails = () => {
       skip: 0,
     };
     const d = await apiCallBack("GET", `admin/orders/${id}`, body, token);
-    console.log("d", d);
     if (d === "logout") {
       window.location.replace("/admin");
       dispatch(logoutHandler());

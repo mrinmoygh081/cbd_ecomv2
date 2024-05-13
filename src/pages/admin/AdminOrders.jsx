@@ -35,7 +35,6 @@ export const AdminOrders = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       const filteredTableData = data.filter((item) => {
         return (
           item?.orderId &&
@@ -129,7 +128,7 @@ export const AdminOrders = () => {
                                 type="button"
                                 className="btn btn-success me-2"
                               >
-                                View
+                                VIEW
                               </Link>
                             </td>
                           </tr>
@@ -146,7 +145,7 @@ export const AdminOrders = () => {
         <footer className="sticky-footer">
           <div className="container">
             <div className="text-center">
-              <small>Copyright © Digipro Design</small>
+              <small>Copyright © </small>
             </div>
           </div>
         </footer>

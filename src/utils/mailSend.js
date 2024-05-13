@@ -24,7 +24,7 @@ const SENDMAIL = async (mailDetails, callback) => {
     const info = await transporter.sendMail(mailDetails);
     callback(info);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

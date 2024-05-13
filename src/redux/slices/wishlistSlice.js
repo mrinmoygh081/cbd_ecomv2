@@ -12,7 +12,6 @@ export const wishlistStage = createSlice({
     addWishListHandler: (state, action) => {
       const { image, product_id, price, name, quantity } = action.payload;
       const existingItem = state.find((item) => item.product_id === product_id);
-      console.log(action.payload);
       if (existingItem) {
         toast.warn("Already added to the wishlist.");
       } else {

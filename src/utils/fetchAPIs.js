@@ -32,7 +32,6 @@ export const postAPI = (path, payload, token) => {
 
 export const apiCallBack = async (method, slug, payload, token) => {
   let path = `${process.env.REACT_APP_BACKEND_API}${slug}`;
-  // console.log("Path", path);
 
   let config = {
     method: method,
@@ -74,7 +73,7 @@ export const getAPI = (path, token) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error.response.data.errors);
+      console.error(error.response.data.errors);
       toast.error(
         "Something went wrong! Please contact to the administrator",
         error.response.data.errors
@@ -103,7 +102,7 @@ export const fileUploadAPI = (path, fileData, token) => {
     })
     .catch((error) => {
       toast.error("Something went wrong! Please contact to the administrator");
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -125,7 +124,7 @@ export const putAPI = (path, body, token) => {
     })
     .catch((error) => {
       toast.error("Something went wrong! Please contact to the administrator");
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -146,6 +145,6 @@ export const deleteAPI = (path, token) => {
     })
     .catch((error) => {
       toast.error("Something went wrong! Please contact to the administrator");
-      console.log(error);
+      console.error(error);
     });
 };

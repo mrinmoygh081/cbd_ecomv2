@@ -11,7 +11,6 @@ import {
 const ProductBuyNow = ({ p_id, name, price, image, item }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(item);
 
   return (
     <>

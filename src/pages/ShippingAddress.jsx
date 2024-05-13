@@ -39,7 +39,6 @@ const ShippingAddress = () => {
     if (!country || !state || !city || !pincode || !form?.location) {
       return toast.warn("Please check all required fields.");
     }
-    console.log(token);
     if (token) {
       setIsPopup(false);
       let body = {
@@ -52,13 +51,16 @@ const ShippingAddress = () => {
       } else {
         d = await postAPI("user/codorder", body, token);
       }
+      console.log("hello", location.state?.paymentMode);
       if (d?.status) {
-        if (location.state?.paymentMode === "online") {
-          console.log("response", d);
+        navigate("/orders");
+        toast.success("Your order has been placed!");
+        dispatch(cleanCartHandler());
+      } else if (location.state?.paymentMode === "online") {
+        if (d?.payment_Link && d.payment_Link !== "") {
+          window.location.href = d.payment_Link;
         } else {
-          navigate("/orders");
-          toast.success("Your order has been placed!");
-          dispatch(cleanCartHandler());
+          toast.warn(`Something went wrong. ${d?.data}`);
         }
       } else {
         toast.warn("Something went wrong!");
