@@ -15,6 +15,23 @@ export const formatDate = (epochTime) => {
   return day + "/" + month + "/" + year;
 };
 
+export const formatDateDashed = (epochTime) => {
+  let date = new Date(epochTime);
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  return year + "-" + month + "-" + day;
+};
+
 export function formatDateTime(dateTimeString) {
   const date = new Date(dateTimeString);
 
@@ -33,3 +50,9 @@ export function formatDateTime(dateTimeString) {
 
   return `${formattedDate} ${formattedTime}`;
 }
+
+export const addDays = (date, days) => {
+  let result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+};

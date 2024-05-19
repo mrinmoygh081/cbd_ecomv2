@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
+import { IoMdArrowDropright } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { apiCallBack } from "../utils/fetchAPIs";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +14,7 @@ import { toast } from "react-toastify";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const location = useLocation();
   const { token, name } = useSelector((state) => state.auth);
   const { numOfItems } = useSelector((state) => state.cart2);
   const [isActive, setIsActive] = useState(false);
@@ -23,6 +24,8 @@ const Header = () => {
     searchKey: "",
     searchValue: "",
   });
+  const [toggleMenu, setToggleMenu] = useState(null);
+  const [subToggleMenu, setSubToggleMenu] = useState(null);
 
   const getCat = async () => {
     try {
@@ -50,7 +53,7 @@ const Header = () => {
   useEffect(() => {
     setIsActive(false);
     setIsSearch(false);
-  }, [pathname]);
+  }, [location?.pathname, location?.search]);
 
   const searchHandler = async () => {
     if (search?.searchKey === "") {
@@ -67,7 +70,7 @@ const Header = () => {
   return (
     <>
       {/* Desktop Header */}
-      <div className="d-none d-md-block top_head">
+      <div className="top_head">
         <div className="topbar">
           <div className="container">
             <div className="row align-items-center">
@@ -204,19 +207,23 @@ const Header = () => {
         </div>
       </div>
       {/* Mobile Header  */}
-      <div className="d-block d-md-none">
-        <div className="header_mobile">
-          <div className="container">
-            <div className="row justify-content-between align-items-center">
-              <div className="col-6">
-                <div className="logo_mobile">
+      <div className="header_mobile">
+        <div className="container">
+          <div className="row justify-content-between align-items-center">
+            <div className="col-6">
+              <div className="logo_mobile">
+                <Link to={"/"}>
                   <img src={require("../assets/cbd.jpeg")} alt="" />
-                </div>
+                </Link>
               </div>
-              <div className="col-2">
-                <div className="header_mobile d-flex">
-                  <IoMenu onClick={() => setIsActive(true)} />
-                </div>
+            </div>
+            <div className="col-3">
+              <div className="header_mobile d-flex justify-content-between">
+                <FaSearch
+                  onClick={() => setIsSearch(true)}
+                  className="search_icon"
+                />
+                <IoMenu onClick={() => setIsActive(true)} />
               </div>
             </div>
           </div>
@@ -226,27 +233,125 @@ const Header = () => {
       <div className={isActive ? "sidebar active" : "sidebar"}>
         <div className="sidebar_header">
           <img src={require("../assets/cbd.jpeg")} alt="" />
-          <button className="no_btn">
-            <RxCross2 onClick={() => setIsActive(false)} />
-          </button>
+          <div>
+            <button className="no_btn">
+              <RxCross2 onClick={() => setIsActive(false)} />
+            </button>
+          </div>
         </div>
-        <ul className="sidebar_nav">
-          <li>
-            <Link to={"/"}>HOME</Link>
-          </li>
-          <li>
-            <Link to={"/products"}>PRODUCTS</Link>
-          </li>
-          <li>
-            <Link to={"/wishlist"}>WISHLIST</Link>
-          </li>
-          <li>
-            <Link to={"/orders"}>YOUR ORDERS</Link>
-          </li>
-          <li>
-            <Link to={"/cart"}>CART</Link>
-          </li>
-        </ul>
+        <div className="sidebar_nav">
+          <ul>
+            <li>
+              <Link to={"/"}>HOME</Link>
+            </li>
+            <li className="drop_down">
+              <div
+                className={
+                  toggleMenu === "CATEGORIES" ? "mob_drop open" : "mob_drop"
+                }
+                onClick={() => {
+                  if (toggleMenu === "CATEGORIES") {
+                    setToggleMenu(null);
+                    setSubToggleMenu(null);
+                  } else {
+                    setToggleMenu("CATEGORIES");
+                  }
+                }}
+              >
+                CATEGORIES
+                <IoMdArrowDropright />
+              </div>
+              {toggleMenu === "CATEGORIES" && (
+                <ul>
+                  {checkTypeArr(cat) &&
+                    cat.map((item, i) => {
+                      return (
+                        <li key={i}>
+                          {checkTypeArr(item?.children) &&
+                          item?.children.length > 0 ? (
+                            <div
+                              className={
+                                subToggleMenu === item?.name
+                                  ? "mob_drop open"
+                                  : "mob_drop"
+                              }
+                              onClick={() => {
+                                if (subToggleMenu === item?.name) {
+                                  setSubToggleMenu(null);
+                                } else {
+                                  setSubToggleMenu(item?.name);
+                                }
+                              }}
+                            >
+                              {item?.name}
+                              <IoMdArrowDropright />
+                            </div>
+                          ) : (
+                            <Link to={`/products?cat_id=${item?.cat_id}`}>
+                              {item?.name}
+                            </Link>
+                          )}
+                          {checkTypeArr(item?.children) &&
+                            item?.children.length > 0 &&
+                            subToggleMenu === item?.name && (
+                              <ul className="drop">
+                                {item.children.map((it, index) => (
+                                  <li key={index}>
+                                    <Link to={`/products?cat_id=${it?.cat_id}`}>
+                                      {it?.name}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                        </li>
+                      );
+                    })}
+                </ul>
+              )}
+            </li>
+            <li>
+              <Link to={"/wishlist"}>WISHLIST</Link>
+            </li>
+            {token ? (
+              <>
+                <li>
+                  <Link to={"/orders"}>MY ORDERS</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to={"/signup"}>SIGNUP</Link>
+                </li>
+                <li>
+                  <Link to={"/login"}>LOGIN</Link>
+                </li>
+              </>
+            )}
+            <li>
+              <Link to={"/cart"}>CART</Link>
+            </li>
+            <li>
+              <Link to={"/about"}>ABOUT</Link>
+            </li>
+            <li>
+              <Link to={"/contact"}>CONTACT</Link>
+            </li>
+            <li>
+              <Link to={"/faqs"}>FAQ</Link>
+            </li>
+            <li>
+              <Link to={"/coffee"}>COFFEE</Link>
+            </li>
+            <li>
+              <Link to={"/news"}>NEWS</Link>
+            </li>
+            <li>
+              <Link to={"/testimonials"}>TESTIMONIALS</Link>
+            </li>
+          </ul>
+        </div>
       </div>
       {/* search popup */}
       <div className={isSearch ? "search active" : "search"}>
@@ -291,6 +396,11 @@ const Header = () => {
                     </Link>
                   </li>
                 ))}
+              {search?.searchValue === "No data found" && (
+                <>
+                  <li>NO PRODUCT FOUND!</li>
+                </>
+              )}
             </ul>
           </div>
         </div>

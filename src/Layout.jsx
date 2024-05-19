@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import { Footer } from "./components/Footer";
@@ -27,6 +27,7 @@ import { DeliveryCharge } from "./pages/admin/DeliveryCharge";
 import Cart from "./pages/Cart";
 import UserSignup from "./pages/UserSignup";
 import ScrollToTopOnPageChange from "./components/ScrollToTopOnPageChange";
+import Shipment from "./pages/admin/Shipment";
 
 const Layout = () => {
   const { token, role } = useSelector((state) => state.auth);
@@ -38,7 +39,8 @@ const Layout = () => {
         <Routes>
           {token && role === "admin" ? (
             <>
-              <Route exact path="/admin" element={<AdminProducts />} />
+              <Route exact path="/" element={<Navigate to="/admin" />} />
+              <Route exact path="/admin" element={<AdminOrders />} />
               <Route exact path="/admin/products" element={<AdminProducts />} />
               <Route
                 exact
@@ -57,6 +59,7 @@ const Layout = () => {
                 path="/admin/delivery"
                 element={<DeliveryCharge />}
               />
+              <Route exact path="/admin/shipment" element={<Shipment />} />
             </>
           ) : (
             <>

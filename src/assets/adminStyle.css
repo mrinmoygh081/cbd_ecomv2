@@ -206,6 +206,7 @@ input[type="number"] {
   }
   #mainNav .navbar-collapse .navbar-sidenav > .nav-item .nav-link-text {
     padding-left: 4px;
+    text-transform: uppercase;
   }
   #mainNav
     .navbar-collapse

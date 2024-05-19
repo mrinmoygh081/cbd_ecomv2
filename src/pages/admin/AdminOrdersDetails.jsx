@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { apiCallBack } from "../../utils/fetchAPIs";
@@ -11,6 +11,7 @@ export const AdminOrdersDetails = () => {
   const { token } = useSelector((state) => state.auth);
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getOrders = async () => {
     let body = {
@@ -60,15 +61,31 @@ export const AdminOrdersDetails = () => {
                             </tr>
                             <tr>
                               <th>Price</th>
-                              <td>${data?.orderInfo?.price}</td>
+                              <td>
+                                $
+                                {data?.orderInfo?.price &&
+                                  parseFloat(data?.orderInfo?.price).toFixed(2)}
+                              </td>
                             </tr>
                             <tr>
                               <th>Delivery Charge</th>
-                              <td>${data?.orderInfo?.delivery}</td>
+                              <td>
+                                $
+                                {data?.orderInfo?.delivery &&
+                                  parseFloat(data?.orderInfo?.delivery).toFixed(
+                                    2
+                                  )}
+                              </td>
                             </tr>
                             <tr>
                               <th>Total Price</th>
-                              <td>${data?.orderInfo?.totalPrice}</td>
+                              <td>
+                                $
+                                {data?.orderInfo?.totalPrice &&
+                                  parseFloat(
+                                    data?.orderInfo?.totalPrice
+                                  ).toFixed(2)}
+                              </td>
                             </tr>
                             <tr>
                               <th>Purchase Date and Time</th>
@@ -141,7 +158,11 @@ export const AdminOrdersDetails = () => {
                                     </tr>
                                     <tr>
                                       <th>Price</th>
-                                      <td>${item?.price}</td>
+                                      <td>
+                                        $
+                                        {item?.price &&
+                                          parseFloat(item?.price).toFixed(2)}
+                                      </td>
                                     </tr>
                                     <tr>
                                       <th>Quantity</th>
@@ -149,7 +170,13 @@ export const AdminOrdersDetails = () => {
                                     </tr>
                                     <tr>
                                       <th>Total Price</th>
-                                      <td>${item?.totaPrice}</td>
+                                      <td>
+                                        $
+                                        {item?.totaPrice &&
+                                          parseFloat(item?.totaPrice).toFixed(
+                                            2
+                                          )}
+                                      </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -157,6 +184,40 @@ export const AdminOrdersDetails = () => {
                             </div>
                           ))}
                       </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-12">
+                    <div className="admin_order_card">
+                      <h3>Shipment Details</h3>
+                      {data?.shipment_details ? (
+                        <>
+                          <div className="table-responsive">
+                            <table className="table table-bordered table-striped">
+                              <tbody>
+                                <tr>
+                                  <th>Tracking ID</th>
+                                  <td>{data?.shipment_details?.traking_id}</td>
+                                </tr>
+                                <tr>
+                                  <th>Status</th>
+                                  <td>{data?.shipment_details?.status}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="btn btn-primary"
+                            onClick={() =>
+                              navigate("/admin/shipment", { state: data })
+                            }
+                          >
+                            ADD SHIPMENT
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -169,7 +230,7 @@ export const AdminOrdersDetails = () => {
         <footer className="sticky-footer">
           <div className="container">
             <div className="text-center">
-              <small>Copyright © </small>
+              <small>Copyright © 2024 </small>
             </div>
           </div>
         </footer>
