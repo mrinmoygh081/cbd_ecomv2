@@ -230,6 +230,7 @@ const Shipment = () => {
                         type="text"
                         name="shipper_postalCode"
                         id="shipper_postalCode"
+                        maxLength={"6"}
                         value={fields?.shipper_postalCode}
                         onChange={(e) => inputChange(e, fields, setFields)}
                         className="form-control"

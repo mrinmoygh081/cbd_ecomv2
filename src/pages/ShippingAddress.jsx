@@ -168,6 +168,7 @@ const ShippingAddress = () => {
                                 id="pincode"
                                 placeholder=""
                                 name="pincode"
+                                maxLength={"6"}
                                 value={form?.pincode}
                                 onChange={(e) => inputChange(e, form, setForm)}
                               />

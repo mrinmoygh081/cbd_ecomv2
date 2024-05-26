@@ -77,22 +77,7 @@ export const DeliveryCharge = () => {
           </ol>
 
           <div className="card mb-3 overflow">
-            <div className="card-header">
-              <form className="form-inline my-2 my-lg-0 mr-lg-2">
-                <div className="input-group">
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="Search for..."
-                  />
-                  <span className="input-group-append">
-                    <button className="btn btn-primary" type="button">
-                      <FaSearch />
-                    </button>
-                  </span>
-                </div>
-              </form>
-            </div>
+            <div className="card-header"></div>
             <div className="card-body mb-5">
               <div className="row">
                 <div className="col-md-6">
