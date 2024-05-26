@@ -313,19 +313,10 @@ const Header = () => {
             <li>
               <Link to={"/wishlist"}>WISHLIST</Link>
             </li>
-            {token ? (
+            {token && (
               <>
                 <li>
                   <Link to={"/orders"}>MY ORDERS</Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link to={"/signup"}>SIGNUP</Link>
-                </li>
-                <li>
-                  <Link to={"/login"}>LOGIN</Link>
                 </li>
               </>
             )}
@@ -350,6 +341,33 @@ const Header = () => {
             <li>
               <Link to={"/testimonials"}>TESTIMONIALS</Link>
             </li>
+            {token ? (
+              <>
+                <li>
+                  <Link
+                    to={"/"}
+                    onClick={() =>
+                      reConfirm(
+                        { file: true },
+                        logOutFun,
+                        "You're going to Logout!"
+                      )
+                    }
+                  >
+                    LOGOUT?
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to={"/login"}>LOGIN</Link>
+                </li>
+                <li>
+                  <Link to={"/signup"}>SIGNUP</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
