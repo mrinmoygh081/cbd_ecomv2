@@ -51,7 +51,6 @@ const ShippingAddress = () => {
       } else {
         d = await postAPI("user/codorder", body, token);
       }
-      console.log("hello", location.state?.paymentMode);
       if (d?.status) {
         navigate("/orders");
         toast.success("Your order has been placed!");

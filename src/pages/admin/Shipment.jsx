@@ -66,7 +66,8 @@ const Shipment = () => {
                     dateFormat="dd/MM/yyyy"
                     className="form-control"
                     placeholderText="YYYY-MM-DD"
-                    minDate={addDays(new Date(), 7)}
+                    minDate={new Date()}
+                    maxDate={addDays(new Date(), 7)}
                   />
                 </div>
               </div>

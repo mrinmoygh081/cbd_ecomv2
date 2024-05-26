@@ -35,17 +35,29 @@ const OrderDetails = () => {
                 {checkTypeArr(data?.products) &&
                   data.products.map((item, index) => (
                     <Fragment key={index}>
-                      <div className="order_product_list col-md-6 col-12">
-                        <h4>{item?.name}</h4>
-                        <p>
-                          Price <i>${item?.price}</i>
-                        </p>
-                        <p>
-                          Quantity: <b>{item?.quantity}</b>
-                        </p>
-                        <p>
-                          Subtotal Price: <i>${item?.totaPrice}</i>
-                        </p>
+                      <div className="col-md-6 col-12">
+                        <div className="order_product_list ">
+                          <h4>{item?.name}</h4>
+                          <p>
+                            Price{" "}
+                            <i>
+                              $
+                              {item?.price &&
+                                parseFloat(item?.price).toFixed(2)}
+                            </i>
+                          </p>
+                          <p>
+                            Quantity: <b>{item?.quantity}</b>
+                          </p>
+                          <p>
+                            Subtotal Price:{" "}
+                            <i>
+                              $
+                              {item?.totaPrice &&
+                                parseFloat(item?.totaPrice).toFixed(2)}
+                            </i>
+                          </p>
+                        </div>
                       </div>
                     </Fragment>
                   ))}
@@ -58,7 +70,12 @@ const OrderDetails = () => {
                 <div className="order_product_list">
                   <h4>Order ID: {data?.orderInfo?.orderId}</h4>
                   <p>
-                    Price <b>${data?.orderInfo?.price}</b>
+                    Price{" "}
+                    <b>
+                      $
+                      {data?.orderInfo?.price &&
+                        parseFloat(data?.orderInfo?.price).toFixed(2)}
+                    </b>
                   </p>
                   <p>
                     Delivery Charge: <b>${data?.orderInfo?.delivery}</b>
@@ -66,7 +83,10 @@ const OrderDetails = () => {
                   <p>
                     Total Price:{" "}
                     <b>
-                      ${data?.orderInfo?.totalPrice} (
+                      $
+                      {data?.orderInfo?.totalPrice &&
+                        parseFloat(data?.orderInfo?.totalPrice).toFixed(2)}{" "}
+                      (
                       {data?.orderInfo?.paymentMode === "COD"
                         ? "Cash On Delivery"
                         : data?.orderInfo?.paymentMode}
@@ -169,6 +189,20 @@ const OrderDetails = () => {
                             )
                           : "WAITING FOR UPDATE!"}
                       </b>
+                    </p>
+                    <p>
+                      Delivery Status: <b>{data?.shipment_details?.status}</b>
+                    </p>
+                    <p>
+                      Track Your Delivery:{" "}
+                      <a
+                        href="https://www.fedex.com/en-in/tracking.html"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-primary"
+                      >
+                        CLICK HERE
+                      </a>
                     </p>
                   </div>
                 </div>

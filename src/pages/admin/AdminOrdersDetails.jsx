@@ -202,6 +202,19 @@ export const AdminOrdersDetails = () => {
                                   <th>Status</th>
                                   <td>{data?.shipment_details?.status}</td>
                                 </tr>
+                                <tr>
+                                  <th>Track Your Delivery </th>
+                                  <td>
+                                    <a
+                                      href="https://www.fedex.com/en-in/tracking.html"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="btn btn-primary"
+                                    >
+                                      CLICK HERE
+                                    </a>
+                                  </td>
+                                </tr>
                               </tbody>
                             </table>
                           </div>
