@@ -69,6 +69,9 @@ const Home = () => {
         </div>
       </section>
       <section className="section_about">
+        <div className="section_head">
+          <img src={require("../assets/partner_banner.png")} alt="" />
+        </div>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-4 col-12">
@@ -76,26 +79,31 @@ const Home = () => {
             </div>
             <div className="col-md-8 col-12">
               <div className="section_text">
-                <h2>About CBD City</h2>
+                <h2>About Rosa and Mary CBD</h2>
                 <p>
-                  CBD City LLC was established jan 2021 in Atlanta Georgia as
-                  part of Black Brown and Green Organics LLC vertically
-                  integrated Hemp and Cannabis company as retail flagship
-                  holistic health and wellness center.
+                  Rosa and Mary CBD LLC was established in January 2021 in
+                  Atlanta, Georgia, as part of Black Brown and Green Organics
+                  LLC—a vertically integrated hemp and cannabis company. Rosa
+                  and Mary CBD serves as a flagship holistic health and wellness
+                  center, committed to empowering communities through natural,
+                  plant-based solutions.
                 </p>
                 <p>
-                  Inspired by Dr. Rapheal Mechoulam Known as Father of Cannabis
-                  Research from Israel was the first to isolate the psychoactive
-                  compound of the cannabis plant -tetrahydrocannabinol or THC.
-                  Which led to thousands of clinical studies throughout the
-                  world.
+                  Inspired by the groundbreaking work of Dr. Raphael Mechoulam,
+                  renowned as the "Father of Cannabis Research" from Israel,
+                  Rosa and Mary CBD draws on his pioneering studies. Dr.
+                  Mechoulam was the first to isolate tetrahydrocannabinol (THC),
+                  the psychoactive compound in cannabis, leading to thousands of
+                  clinical studies worldwide on the medical potential of hemp
+                  and cannabis.
                 </p>
                 <p>
-                  As early as 2737 B.C. the mystical Emperor Shen Neng of China
-                  was prescribing majuana tea for treatment of gout,rheumatism,
-                  malaria and for memory loss. Based on years of clinical
-                  studies of the whole body medical benefits from the hemp and
-                  cannabis plants.
+                  The healing legacy of cannabis dates back to 2737 B.C., when
+                  Emperor Shen Neng of China prescribed cannabis tea for
+                  ailments such as gout, rheumatism, malaria, and memory loss.
+                  Building on centuries of holistic practice and modern clinical
+                  research, Rosa and Mary CBD is dedicated to offering the
+                  highest quality cannabinoid products.
                 </p>
                 <Link to={"/about"} className="btn_style">
                   EXPLORE MORE
@@ -140,7 +148,41 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="container my-5">
+      <section className="product_section">
+        <div className="section_head">
+          <img src={require("../assets/imgs/124.png")} alt="" />
+          <h2>TOP PRODUCTS</h2>
+        </div>
+        <div className="container">
+          <div className="section_header">
+            <h2>Discover the Best CBD Products for Your Wellness Journey</h2>
+            <p>
+              Experience the power of nature with our lab-tested CBD tinctures,
+              gummies, creams, and capsules designed to relax, recharge, and
+              enhance your well-being.
+            </p>
+          </div>
+          <div className="product-cards__slider">
+            <div className="row">
+              {checkTypeArr(products) &&
+                products
+                  .filter((item) => item.type === 1)
+                  .map((item, i) => (
+                    <ProductBuyNow
+                      p_id={item?.product_id}
+                      name={item?.name}
+                      price={item?.price}
+                      image={item?.image}
+                      key={i}
+                      item={item}
+                    />
+                  ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* <div className="container my-5">
         <section className="testimonials">
           <div className="container">
             <div className="section_header">
@@ -196,12 +238,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="product_section">
-        <div className="section_head">
-          <img src={require("../assets/partner_banner.png")} alt="" />
-        </div>
         <div className="container">
           <div className="section_header">
             <h2 className="my-5">Our Partners</h2>

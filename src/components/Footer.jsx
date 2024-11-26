@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 // imgs import
-import logo from "../assets/cbd.jpeg";
+import logo from "../assets/logo.png";
 import { FaFacebookF, FaInstagram, FaX, FaYoutube } from "react-icons/fa6";
 
 export const Footer = () => {
@@ -20,12 +20,12 @@ export const Footer = () => {
                     </div>
                     <div className="text">
                       <p>
-                        At CBD CITY, we&apos;re dedicated to bringing you the
-                        finest quality CBD products sourced from reputable
-                        suppliers around the globe. Whether you&apos;re seeking
-                        relief from pain, stress, anxiety, or simply looking to
-                        enhance your overall wellness, we have a wide range of
-                        premium CBD products to meet your needs.
+                        Rosa and Mary CBD LLC was established in January 2021 in
+                        Atlanta, Georgia, as part of Black Brown and Green
+                        Organics LLC—a vertically integrated hemp and cannabis
+                        company. Rosa and Mary CBD serves as a flagship holistic
+                        health and wellness center, committed to empowering
+                        communities through natural, plant-based solutions.
                       </p>
                     </div>
                   </div>
@@ -106,9 +106,9 @@ export const Footer = () => {
                   <div className="footer-widget info-widget">
                     <h2>Contact Info</h2>
                     <ul className="info-list">
-                      <li>2286 Cascade Rd, Atlanta, GA</li>
-                      <li>(404)- 454-8830</li>
-                      <li>cbdcityalt@gmail.com</li>
+                      <li>Atlanta, GA</li>
+                      <li>(678)- 979-7420</li>
+                      <li>info@rosaandmary.com</li>
                     </ul>
                     <ul className="social-links">
                       <li className="google">

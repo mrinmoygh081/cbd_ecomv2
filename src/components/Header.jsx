@@ -88,7 +88,7 @@ const Header = () => {
                   <li>
                     <Link to={"/faqs"}>FAQ</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to={"/coffee"}>Coffee</Link>
                   </li>
                   <li>
@@ -96,7 +96,7 @@ const Header = () => {
                   </li>
                   <li>
                     <Link to={"/testimonials"}>Testimonials</Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               <div className="col-md-4"></div>
@@ -153,7 +153,11 @@ const Header = () => {
               <div className="col-md-2">
                 <div className="header_left">
                   <Link to="/">
-                    <img src={require("../assets/cbd.jpeg")} alt="" />
+                    <img
+                      src={require("../assets/logo.png")}
+                      alt=""
+                      style={{ maxWidth: "150px" }}
+                    />
                   </Link>
                 </div>
               </div>
@@ -213,7 +217,7 @@ const Header = () => {
             <div className="col-6">
               <div className="logo_mobile">
                 <Link to={"/"}>
-                  <img src={require("../assets/cbd.jpeg")} alt="" />
+                  <img src={require("../assets/logo.png")} alt="" />
                 </Link>
               </div>
             </div>
@@ -232,7 +236,7 @@ const Header = () => {
       {/* sidebar */}
       <div className={isActive ? "sidebar active" : "sidebar"}>
         <div className="sidebar_header">
-          <img src={require("../assets/cbd.jpeg")} alt="" />
+          <img src={require("../assets/logo.png")} alt="" />
           <div>
             <button className="no_btn">
               <RxCross2 onClick={() => setIsActive(false)} />
@@ -332,7 +336,7 @@ const Header = () => {
             <li>
               <Link to={"/faqs"}>FAQ</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to={"/coffee"}>COFFEE</Link>
             </li>
             <li>
@@ -340,7 +344,7 @@ const Header = () => {
             </li>
             <li>
               <Link to={"/testimonials"}>TESTIMONIALS</Link>
-            </li>
+            </li> */}
             {token ? (
               <>
                 <li>
@@ -374,7 +378,7 @@ const Header = () => {
       {/* search popup */}
       <div className={isSearch ? "search active" : "search"}>
         <div className="sidebar_header">
-          <img src={require("../assets/cbd.jpeg")} alt="" />
+          <img src={require("../assets/logo.png")} alt="" />
           <button className="no_btn">
             <RxCross2 onClick={() => setIsSearch(false)} />
           </button>

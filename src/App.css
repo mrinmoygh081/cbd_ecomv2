@@ -101,7 +101,7 @@ img {
 }
 .header {
   color: #fff;
-  background-color: rgba(23, 24, 26, 0.67) !important;
+  background-color: #868686 !important;
 }
 .megamenu {
   position: relative;
@@ -404,7 +404,7 @@ img {
 .main-footer {
   position: relative;
   padding: 110px 0px 0px;
-  background-color: var(--mainGreenColor);
+  background-color: #636363;
   background-repeat: repeat-x;
   background-position: right bottom;
 }
