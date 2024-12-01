@@ -648,6 +648,7 @@ img {
   color: #fff;
   transition: all 0.5s ease-in-out;
   transform: translateY(-110%);
+  overflow-y: scroll;
 }
 .sidebar.active {
   transform: translateY(0);
@@ -773,6 +774,7 @@ img {
   color: #fff;
   transition: all 0.5s ease-in-out;
   transform: translateY(-110%);
+  overflow-y: scroll;
 }
 .search.active {
   transform: translateY(0);
