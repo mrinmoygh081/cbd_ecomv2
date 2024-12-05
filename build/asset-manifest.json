@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.70059d4d.css",
-    "main.js": "/static/js/main.7a973025.js",
+    "main.js": "/static/js/main.9d73da8e.js",
     "static/media/partner_banner.png": "/static/media/partner_banner.d30dc7ac48212e697a53.png",
     "static/media/1.png": "/static/media/1.8cd31fc476f84b6ac55d.png",
     "static/media/4.png": "/static/media/4.f35f9a702c85fdc92611.png",
     "static/media/124r.png": "/static/media/124r.b2bf639ab16fa55c3fd5.png",
     "static/media/124.png": "/static/media/124.5c87136bd7ee0ba5b725.png",
-    "static/media/coffee2.jpg": "/static/media/coffee2.253b603079b1cf3197e4.jpg",
     "static/media/milk chocolate.png": "/static/media/milk chocolate.b8e61d1e3b10e7012a9a.png",
+    "static/media/logo.png": "/static/media/logo.6534c1e55db4f26ee29c.png",
     "static/media/delta 8 ren.png": "/static/media/delta 8 ren.9708ff657c7f98382e02.png",
     "static/media/delta 8 wat.png": "/static/media/delta 8 wat.bf3678036d7339e4f297.png",
     "static/media/delta 8 org.png": "/static/media/delta 8 org.1db0709373682363ddaf.png",
@@ -16,14 +16,14 @@
     "static/media/cbd cream.png": "/static/media/cbd cream.f2e2349e7c8d81e72fae.png",
     "static/media/coffee.webp": "/static/media/coffee.679fccf2bd9c0afd1cf5.webp",
     "static/media/coffee3.webp": "/static/media/coffee3.212f646c6bea65b6947c.webp",
-    "static/media/logo.png": "/static/media/logo.7022dd4869f8741e8a47.png",
+    "static/media/coffee2.jpg": "/static/media/coffee2.7022dd4869f8741e8a47.jpg",
     "static/media/img2.jpeg": "/static/media/img2.58efb01281b7773af0cc.jpeg",
     "index.html": "/index.html",
     "main.70059d4d.css.map": "/static/css/main.70059d4d.css.map",
-    "main.7a973025.js.map": "/static/js/main.7a973025.js.map"
+    "main.9d73da8e.js.map": "/static/js/main.9d73da8e.js.map"
   },
   "entrypoints": [
     "static/css/main.70059d4d.css",
-    "static/js/main.7a973025.js"
+    "static/js/main.9d73da8e.js"
   ]
 }
